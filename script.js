@@ -1,7 +1,31 @@
-let currentCardId = 'intro-screen'; // Track what is currently showing
+// Automatically create falling rose petals when page loads
+window.onload = function() {
+    createPetals();
+};
+
+function createPetals() {
+    const container = document.getElementById('petals-container');
+    const petalCount = 35; 
+
+    for (let i = 0; i < petalCount; i++) {
+        let petal = document.createElement('div');
+        petal.classList.add('petal');
+        
+        let size = Math.random() * 10 + 10; 
+        petal.style.width = size + 'px';
+        petal.style.height = size + 'px';
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; 
+        petal.style.animationDelay = Math.random() * 5 + 's'; 
+        
+        container.appendChild(petal);
+    }
+}
+
 let videoPlayed = false;
 
-function startExperience() {
+function showPage(nextPageId) {
+    // Play video on first click if not already playing
     if(!videoPlayed) {
         let video = document.getElementById("bg-video");
         video.muted = false;
@@ -9,34 +33,20 @@ function startExperience() {
         video.play().catch(error => console.log("Video play failed:", error));
         videoPlayed = true;
     }
-    
-    showPage('page1');
-}
 
-function showPage(nextPageId) {
-    const currentCard = document.getElementById(currentCardId);
+    // Hide all cards smoothly
+    const pages = document.querySelectorAll('.glass-card');
+    pages.forEach(page => {
+        page.classList.remove('active');
+    });
+
+    // Show the new card smoothly
     const nextCard = document.getElementById(nextPageId);
+    if(nextCard) {
+        nextCard.classList.add('active');
+    }
 
-    if(!currentCard || !nextCard) return;
-
-    // 1. Trigger the "Slide Out Left" animation on the current card
-    currentCard.classList.remove('active');
-    currentCard.classList.add('slide-out');
-
-    // 2. Wait for the animation to finish (0.6 seconds), then completely hide it
-    setTimeout(() => {
-        currentCard.classList.remove('slide-out');
-        currentCard.classList.add('hidden');
-    }, 600);
-
-    // 3. Trigger the "Slide In Right" animation on the new card immediately
-    nextCard.classList.remove('hidden');
-    nextCard.classList.add('active');
-
-    // Update tracker
-    currentCardId = nextPageId;
-
-    // Final Celebration Check
+    // Trigger Confetti and Sound on the final page
     if (nextPageId === 'yes-page') {
         let crackers = document.getElementById("cracker-sound");
         if(crackers) {
@@ -47,7 +57,7 @@ function showPage(nextPageId) {
     }
 }
 
-// Ensure the buttons still run away!
+// Ensure the buttons run away smoothly
 const runawayButtons = document.querySelectorAll('.runaway-btn');
 
 runawayButtons.forEach(btn => {
