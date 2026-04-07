@@ -1,50 +1,43 @@
-// Automatically create falling rose petals when page loads
-window.onload = function() {
-    createPetals();
-};
-
-function createPetals() {
-    const container = document.getElementById('petals-container');
-    const petalCount = 35; // Number of petals on screen
-
-    for (let i = 0; i < petalCount; i++) {
-        let petal = document.createElement('div');
-        petal.classList.add('petal');
-        
-        // Randomize size, position, and animation speed
-        let size = Math.random() * 10 + 10; // 10px to 20px
-        petal.style.width = size + 'px';
-        petal.style.height = size + 'px';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; // Fall speed (4s to 8s)
-        petal.style.animationDelay = Math.random() * 5 + 's'; // Stagger start times
-        
-        container.appendChild(petal);
-    }
-}
+let currentCardId = 'intro-screen'; // Track what is currently showing
+let videoPlayed = false;
 
 function startExperience() {
-    let video = document.getElementById("bg-video");
-    
-    video.muted = false;
-    video.volume = 0.8; 
-    video.play().catch(error => console.log("Video play failed:", error));
+    if(!videoPlayed) {
+        let video = document.getElementById("bg-video");
+        video.muted = false;
+        video.volume = 0.8; 
+        video.play().catch(error => console.log("Video play failed:", error));
+        videoPlayed = true;
+    }
     
     showPage('page1');
 }
 
-function showPage(pageId) {
-    const pages = document.querySelectorAll('.glass-card');
-    pages.forEach(page => {
-        page.classList.remove('active');
-        page.classList.add('hidden');
-    });
+function showPage(nextPageId) {
+    const currentCard = document.getElementById(currentCardId);
+    const nextCard = document.getElementById(nextPageId);
 
-    const nextPage = document.getElementById(pageId);
-    nextPage.classList.remove('hidden');
-    nextPage.classList.add('active');
+    if(!currentCard || !nextCard) return;
 
-    if (pageId === 'yes-page') {
+    // 1. Trigger the "Slide Out Left" animation on the current card
+    currentCard.classList.remove('active');
+    currentCard.classList.add('slide-out');
+
+    // 2. Wait for the animation to finish (0.6 seconds), then completely hide it
+    setTimeout(() => {
+        currentCard.classList.remove('slide-out');
+        currentCard.classList.add('hidden');
+    }, 600);
+
+    // 3. Trigger the "Slide In Right" animation on the new card immediately
+    nextCard.classList.remove('hidden');
+    nextCard.classList.add('active');
+
+    // Update tracker
+    currentCardId = nextPageId;
+
+    // Final Celebration Check
+    if (nextPageId === 'yes-page') {
         let crackers = document.getElementById("cracker-sound");
         if(crackers) {
             crackers.volume = 1.0;
@@ -54,6 +47,7 @@ function showPage(pageId) {
     }
 }
 
+// Ensure the buttons still run away!
 const runawayButtons = document.querySelectorAll('.runaway-btn');
 
 runawayButtons.forEach(btn => {
