@@ -6,19 +6,14 @@
     <title>For My Moongfali 💖</title>
     
     <link rel="stylesheet" href="style.css">
-    <!-- Modern Premium OTT Fonts (Inter & Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
 
-    <!-- OTT Premium Header -->
-    <div class="ott-header">
-        <div class="brand">✨ K & P <span>ORIGINALS</span></div>
-        <div class="badge">PREMIUM</div>
-    </div>
+    <!-- Falling Rose Petals -->
+    <div id="petals-container"></div>
 
-    <!-- Background Video -->
     <div class="video-container">
         <video autoplay loop muted playsinline id="bg-video">
             <source src="background.mp4" type="video/mp4">
@@ -30,163 +25,147 @@
         <source src="crackers.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Main App Container for Slide Transitions -->
     <div class="app-container">
         
         <div id="intro-screen" class="glass-card active">
-            <div class="episode-tag">SERIES PREMIERE</div>
             <h1>I have a special question for you... 🙈</h1>
-            <p>Turn your volume up and click play! 🔊</p>
-            <button class="btn yes" onclick="showPage('page1')">▶ Play <span class="heartbeat">❤️</span></button>
+            <p>Turn your volume up and click open! 🔊</p>
+            <button class="btn yes" onclick="showPage('page1')">Open <span class="heartbeat">❤️</span></button>
         </div>
         
-        <div id="page1" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 1</div>
+        <div id="page1" class="glass-card">
             <img src="giphy.gif" alt="Cute" class="floating">
             <h1>Hey <span class="highlight">Pooja ji</span>, do you love me? 😌</h1>
             <p>- Kartikey is asking...</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page2')">No</button>
             </div>
         </div>
 
-        <div id="page2" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 2</div>
+        <div id="page2" class="glass-card">
             <img src="giphy (1).gif" alt="Ouch" class="floating">
             <h1>Ouch! That was quick. 🥺</h1>
             <p>Meri pyari <span class="highlight">Moongfali</span>, seriously No?</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page3')">No</button>
             </div>
         </div>
 
-        <div id="page3" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 3</div>
+        <div id="page3" class="glass-card">
             <img src="giphy (2).gif" alt="Thinking" class="floating">
             <h1>Are you sure? 🤨</h1>
             <p>Kartikey is very cute, just so you know...</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page4')">No</button>
             </div>
         </div>
 
-        <div id="page4" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 4</div>
+        <div id="page4" class="glass-card">
             <img src="giphy (3).gif" alt="Pizza" class="floating">
             <h1>I will literally share my favorite food with you! 🍕</h1>
             <p>Ab toh haan bol do...</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page5')">No</button>
             </div>
         </div>
 
-        <div id="page5" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 5</div>
+        <div id="page5" class="glass-card">
             <img src="giphy (4).gif" alt="Sleeping" class="floating">
             <h1>Okay, I promise to handle all your tantrums 😌</h1>
             <p>See how much I'm compromising?</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page6')">No</button>
             </div>
         </div>
 
-        <div id="page6" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 6</div>
+        <div id="page6" class="glass-card">
             <img src="giphy (5).gif" alt="Talking" class="floating">
             <h1>I'll even let you win all our arguments! 🙄</h1>
             <p>(Well, almost all...)</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page7')">No</button>
             </div>
         </div>
 
-        <div id="page7" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 7</div>
+        <div id="page7" class="glass-card">
             <img src="giphy (6).gif" alt="Sad" class="floating">
             <h1>You are breaking my heart, <span class="highlight">Moongfali</span> 💔</h1>
             <p>Bohot nakhre hain aapke Pooja ji...</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page8')">No</button>
             </div>
         </div>
 
-        <div id="page8" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 8</div>
+        <div id="page8" class="glass-card">
             <img src="giphy (7).gif" alt="Crying" class="floating">
             <h1>Okay fine, I'm actually crying now 😭</h1>
             <p>Maan jao na please?</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page9')">No</button>
             </div>
         </div>
 
-        <div id="page9" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 9</div>
+        <div id="page9" class="glass-card">
             <img src="giphy (8).gif" alt="Angry" class="floating">
             <h1>Stop clicking No! 😤</h1>
             <p>It's officially illegal to say No to Kartikey.</p>
             <div class="button-container">
-                <button class="btn yes runaway-btn">▶ Yes</button>
+                <button class="btn yes runaway-btn">Yes</button>
                 <button class="btn no" onclick="showPage('page10')">No</button>
             </div>
         </div>
 
         <!-- The Tables Turn! -->
-        <div id="page10" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 10 : THE TWIST</div>
+        <div id="page10" class="glass-card">
             <img src="giphy (9).gif" alt="Magic" class="floating">
             <h1>Fine! The universe is taking over! 🌌</h1>
             <p>The rules are changing right now...</p>
             <div class="button-container">
-                <button class="btn yes" onclick="showPage('page11')">▶ Yes</button>
+                <button class="btn yes" onclick="showPage('page11')">Yes</button>
                 <button class="btn no runaway-btn">No</button>
             </div>
         </div>
 
-        <div id="page11" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 11</div>
+        <div id="page11" class="glass-card">
             <img src="giphy (10).gif" alt="Smug" class="floating">
             <h1>Haha! Magic! ✨</h1>
             <p>Try clicking No now, <span class="highlight">Moongfali</span>! 😈</p>
             <div class="button-container">
-                <button class="btn yes" onclick="showPage('page12')">▶ Yes</button>
+                <button class="btn yes" onclick="showPage('page12')">Yes</button>
                 <button class="btn no runaway-btn">No</button>
             </div>
         </div>
 
-        <div id="page12" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 12</div>
+        <div id="page12" class="glass-card">
             <img src="giphy (11).gif" alt="Hug" class="floating">
             <h1>Looks like you are stuck with me! 💖</h1>
             <p>No escape from my love...</p>
             <div class="button-container">
-                <button class="btn yes" onclick="showPage('page13')">▶ Yes</button>
+                <button class="btn yes" onclick="showPage('page13')">Yes</button>
                 <button class="btn no runaway-btn">No</button>
             </div>
         </div>
 
-        <div id="page13" class="glass-card hidden">
-            <div class="episode-tag">EPISODE 13 : SEASON FINALE</div>
+        <div id="page13" class="glass-card">
             <img src="giphy (12).gif" alt="Love" class="floating">
             <h1>Just accept your fate! 😌</h1>
             <p>Click YES and make me the happiest!</p>
             <div class="button-container">
-                <button class="btn yes pulse-btn" onclick="showPage('yes-page')">▶ Yes</button>
+                <button class="btn yes pulse-btn" onclick="showPage('yes-page')">Yes</button>
                 <button class="btn no runaway-btn">No</button>
             </div>
         </div>
 
         <!-- Final Page: YES -->
-        <div id="yes-page" class="glass-card hidden">
-            <div class="episode-tag">HAPPILY EVER AFTER</div>
+        <div id="yes-page" class="glass-card">
             <img src="giphy (13).gif" alt="Happy" class="floating">
             <h1>I knew it! I love you too, <span class="highlight">Moongfali</span>! 🎉💖</h1>
             <p>Kartikey & <span class="highlight">Pooja ji</span> Forever ✨</p>
