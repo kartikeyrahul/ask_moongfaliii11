@@ -41,23 +41,23 @@
         </div>
         <p id="fingerprint-msg" class="game-text">Waiting for scan...</p>
         <div class="button-container">
-            <!-- THE FIX IS HERE: Changed to onclick="startExperience()" -->
             <button id="scan-btn" class="btn yes hidden glow-btn" onclick="startExperience()">Access Granted ✨</button>
         </div>
     </div>
 
-    <!-- SLIDE 1: INTRO (TYPEWRITER EFFECT) -->
+    <!-- SLIDE 1: INTRO -->
     <div id="intro-screen" class="glass-card hidden">
         <h1 id="typewriter-title" class="typing-cursor"></h1>
         <p id="typewriter-text" style="min-height: 50px;"></p>
         <button id="intro-btn" class="btn yes glow-btn hidden" onclick="showPage('polaroid-screen')">Start the Journey ✨</button>
     </div>
 
-    <!-- NEW GAME 2: POLAROID REVEAL -->
+    <!-- GAME 2: POLAROID REVEAL (Uses us.jpg) -->
     <div id="polaroid-screen" class="glass-card hidden">
         <h1>Developing a Memory... 📸</h1>
         <p>Tap and hold the blank photo to develop it.</p>
         <div class="polaroid-frame" id="polaroid-frame" onclick="developPhoto()">
+            <!-- Custom Image 1 -->
             <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" id="polaroid-img" onerror="this.src='giphy.gif'">
             <div class="polaroid-caption">My Favorite Person ❤️</div>
         </div>
@@ -66,7 +66,7 @@
         </div>
     </div>
     
-    <!-- SLIDES 2 to 6: Teasing -->
+    <!-- SLIDES 2 to 4 -->
     <div id="page2" class="glass-card hidden">
         <img src="giphy.gif" alt="Cute" class="floating">
         <h1>Hey Moongfali, will you officially be mine forever? 😉</h1>
@@ -95,9 +95,11 @@
         </div>
     </div>
 
+    <!-- SLIDE 5: Custom Image 2 (Shopping) -->
     <div id="page5" class="glass-card hidden">
-        <div class="emoji-hero">🛍️</div>
+        <img src="shopping.jpg" alt="Shopping" class="floating custom-img" onerror="this.src='giphy (3).gif'">
         <h1>Shopping ke saare bags main uthaunga!</h1>
+        <p>Aur bina complain kiye tumhare pictures bhi click karunga 📸</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page6')">No</button>
@@ -128,7 +130,7 @@
         </div>
     </div>
 
-    <!-- NEW GAME 4: DIGITAL SCRATCH CARD -->
+    <!-- GAME 4: DIGITAL SCRATCH CARD -->
     <div id="scratch-screen" class="glass-card hidden">
         <h1>A Secret Message 🤫</h1>
         <p>Scratch the silver foil to reveal what I really think about you...</p>
@@ -143,7 +145,7 @@
         </div>
     </div>
 
-    <!-- SLIDES 8 to 11 -->
+    <!-- SLIDES 8 & 9 (Custom Image 3 - Nakhre) -->
     <div id="page8" class="glass-card hidden">
         <img src="giphy (4).gif" alt="Sleeping" class="floating">
         <h1>Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
@@ -154,8 +156,9 @@
     </div>
 
     <div id="page9" class="glass-card hidden">
-        <div class="emoji-hero">🧘‍♂️</div>
+        <img src="nakhre.jpg" alt="Mood Swings" class="floating custom-img" onerror="this.src='giphy (5).gif'">
         <h1>Tumhare mood swings bhi hass ke seh lunga!</h1>
+        <p>Aur chocolates hamesha ready rakhunga 🍫</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page10')">No</button>
@@ -201,9 +204,11 @@
         </div>
     </div>
 
+    <!-- SLIDE 14: Custom Image 4 (Destiny) -->
     <div id="page14" class="glass-card hidden">
-        <div class="emoji-hero">✨</div>
+        <img src="destiny.jpg" alt="Magical Destiny" class="floating custom-img" onerror="this.src='giphy (9).gif'">
         <h1>Dekha? "Forever with Kartikey"</h1>
+        <p>Fate has spoken. You can't fight destiny...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page15')">No</button>
@@ -290,9 +295,9 @@
         </div>
     </div>
 
-    <!-- FINAL YES -->
+    <!-- FINAL YES: Custom Image 5 (Forever) -->
     <div id="page24" class="glass-card hidden final-card">
-        <img src="giphy (13).gif" alt="Happy" class="floating premium-glow">
+        <img src="forever.jpg" alt="Happy Forever" class="floating custom-img premium-glow" onerror="this.src='giphy (13).gif'">
         <h1 id="final-typewriter" class="typing-cursor"></h1>
         <p class="final-text">Kartikey ❤️ His Moongfali 🥜</p>
     </div>
