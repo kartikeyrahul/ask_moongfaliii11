@@ -1,3 +1,4 @@
+// --- AUDIO SYSTEM (Web Audio API for UI Sounds) ---
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 function initAudio() { if (!audioCtx) audioCtx = new AudioContext(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
@@ -80,10 +81,10 @@ function showPage(pageId) {
     document.querySelectorAll('.glass-card').forEach(page => { page.classList.remove('active'); page.classList.add('hidden'); });
     const nextPage = document.getElementById(pageId); nextPage.classList.remove('hidden'); nextPage.classList.add('active');
     if(pageId === 'scratch-screen') initScratchCard();
-    if (pageId === 'page24') initHoldReveal(); // Initialize final slide game
+    if(pageId === 'page24') initHoldReveal(); // Start the final sequence logic
 }
 
-// FINAL SLIDE: HOLD TO REVEAL LOGIC
+// THE NEW FINAL SEQUENCE LOGIC
 function initHoldReveal() {
     const holdHeart = document.getElementById('hold-heart');
     const holdRing = document.getElementById('hold-ring');
@@ -100,7 +101,6 @@ function initHoldReveal() {
         revealTimer = setInterval(() => {
             revealProgress += 2;
             let angle = (revealProgress / 100) * 360;
-            // CSS trick to make the border fill up circularly
             holdRing.style.borderTopColor = angle > 0 ? '#ff6b81' : 'transparent';
             holdRing.style.borderRightColor = angle > 90 ? '#ff6b81' : 'transparent';
             holdRing.style.borderBottomColor = angle > 180 ? '#ff6b81' : 'transparent';
@@ -112,7 +112,7 @@ function initHoldReveal() {
                 isRevealed = true;
                 triggerFinalMagic();
             }
-        }, 30); // 1.5 seconds to fill
+        }, 30);
     }
 
     function stopReveal() {
@@ -131,19 +131,26 @@ function triggerFinalMagic() {
     document.getElementById('reveal-prompt').classList.add('hidden');
     document.getElementById('gallery-container').classList.remove('hidden');
     
-    // Slight delay to allow display:block to render before triggering CSS animation class
+    // 1. Polaroid starts developing
+    const finalPolaroid = document.getElementById('final-polaroid');
+    finalPolaroid.classList.add('developing');
+    
+    // 2. Wait 4 seconds for it to fully develop, then trigger the scatter & confetti
     setTimeout(() => {
-        document.querySelector('.collage-wrapper').classList.add('revealed');
+        document.getElementById('final-collage').classList.add('revealed');
         document.querySelector('.final-text-container').classList.add('revealed-text');
         
         let crackers = document.getElementById("cracker-sound");
         if(crackers) { crackers.volume = 1.0; crackers.play().catch(e => console.log(e)); }
         startCrazyConfetti();
-        setTimeout(() => { typeWriter('final-typewriter', "I knew it! Besties and soulmates forever! 🎉💖", 80); }, 1500);
-    }, 50);
+        
+        setTimeout(() => { 
+            typeWriter('final-typewriter', "I knew it! Besties and soulmates forever! 🎉💖", 80); 
+        }, 500);
+        
+    }, 4000);
 }
 
-// SCRATCH CARD
 function initScratchCard() {
     const canvas = document.getElementById('scratch-pad'); const ctx = canvas.getContext('2d'); let isDrawing = false;
     ctx.fillStyle = '#b0bec5'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.font = "20px Poppins"; ctx.fillStyle = "#ffffff"; ctx.fillText("Scratch Here 🪙", 70, 80);
