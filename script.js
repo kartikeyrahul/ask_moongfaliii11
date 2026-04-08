@@ -26,14 +26,13 @@ function playBloop() {
     osc.stop(audioCtx.currentTime + 0.1);
 }
 
-// Bind sound to all buttons and interactive elements
+// Bind sound to elements
 document.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' || e.target.classList.contains('balloon') || e.target.classList.contains('flip-card') || e.target.tagName === 'CANVAS') {
         initAudio();
         playBloop();
     }
 });
-
 
 // --- AMBIENT PETALS ---
 function createAmbientPetals() {
@@ -70,7 +69,6 @@ function typeWriter(elementId, text, speed, callback) {
 
 
 // --- GAMES & LOGIC ---
-
 function checkPassword() {
     initAudio();
     const input = document.getElementById('heart-password').value.toLowerCase().trim();
@@ -105,12 +103,14 @@ function startScan(e) {
         }
     }, 50);
 }
+
 function stopScan() {
     if (scanProgress < 100) {
         clearInterval(scanTimer); scanProgress = 0; scanLine.style.height = '0%';
         scannerBox.classList.remove('scanning'); fingerprintMsg.innerText = "Scan failed. Keep holding!";
     }
 }
+
 scannerBox.addEventListener('mousedown', startScan);
 scannerBox.addEventListener('touchstart', startScan, {passive: false});
 scannerBox.addEventListener('mouseup', stopScan);
@@ -119,10 +119,16 @@ scannerBox.addEventListener('mouseleave', stopScan);
 
 function startExperience() {
     let video = document.getElementById("bg-video");
-    if (video) { video.muted = false; video.volume = 0.8; video.play().catch(e => console.log(e)); }
+    if (video) { 
+        video.muted = false; 
+        video.volume = 0.8; 
+        video.play().catch(e => console.log(e)); 
+    }
+    
+    // Shows the intro screen
     showPage('intro-screen');
     
-    // Trigger Typewriter
+    // Starts the typewriter effect
     setTimeout(() => {
         typeWriter('typewriter-title', "Welcome, My Love... 🙈", 100, () => {
             typeWriter('typewriter-text', "Turn the volume up, brightness up, and open your heart! ❤️🔊", 50, () => {
@@ -136,7 +142,7 @@ function developPhoto() {
     document.getElementById('polaroid-frame').classList.add('developing');
     setTimeout(() => {
         document.getElementById('polaroid-btn').classList.remove('hidden');
-    }, 4000); // 4 seconds to develop
+    }, 4000); 
 }
 
 function showPage(pageId) {
@@ -148,7 +154,7 @@ function showPage(pageId) {
     nextPage.classList.remove('hidden');
     nextPage.classList.add('active');
 
-    // Scratch Card Init
+    // Init Scratch Card
     if(pageId === 'scratch-screen') initScratchCard();
 
     // Final Setup
@@ -162,13 +168,11 @@ function showPage(pageId) {
     }
 }
 
-// Scratch Card Logic
 function initScratchCard() {
     const canvas = document.getElementById('scratch-pad');
     const ctx = canvas.getContext('2d');
     let isDrawing = false;
     
-    // Fill with silver foil
     ctx.fillStyle = '#b0bec5';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.font = "20px Poppins";
@@ -187,7 +191,6 @@ function initScratchCard() {
         ctx.arc(x, y, 20, 0, Math.PI * 2);
         ctx.fill();
 
-        // Reveal logic based on random scratches (simple version)
         document.getElementById('scratch-btn').classList.remove('hidden');
     }
 
@@ -198,7 +201,6 @@ function initScratchCard() {
     document.addEventListener('mouseup', () => isDrawing = false);
     document.addEventListener('touchend', () => isDrawing = false);
 }
-
 
 let balloonsPopped = 0;
 function popBalloon(element) {
