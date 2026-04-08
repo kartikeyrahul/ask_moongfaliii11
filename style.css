@@ -18,8 +18,8 @@ body { font-family: 'Poppins', sans-serif; height: 100vh; display: flex; justify
 
 /* FINAL SLIDE OVERRIDES */
 .final-card {
-    max-width: 700px; /* Wider for gallery */
-    max-height: 90vh; /* Allows it to expand vertically */
+    max-width: 700px; 
+    max-height: 90vh; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -33,37 +33,38 @@ p { font-weight: 300; font-size: 16px; margin-bottom: 30px; color: #e0e0e0; }
 .typing-cursor::after { content: '|'; animation: blink 0.8s infinite; color: #ff6b81; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* POLAROID STYLING (Used in Game 2 and Final Slide) */
-.polaroid-frame { background: white; padding: 15px 15px 35px 15px; border-radius: 5px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); transition: transform 0.3s ease, filter 2s ease; margin: 0 auto 20px auto; width: 100%; max-width: 250px; }
-.single-game-polaroid { transform: rotate(-3deg); cursor: pointer; }
-.single-game-polaroid:active { transform: scale(0.95) rotate(0deg); }
+/* POLAROID STYLING */
+.polaroid-frame { background: white; padding: 15px 15px 35px 15px; border-radius: 5px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); transition: transform 0.3s ease, filter 2s ease; margin: 0 auto 20px auto; width: 100%; max-width: 250px; cursor: pointer; }
+.polaroid-frame:active { transform: scale(0.95); }
 
-/* The blurred state */
+/* The blurred/grayscale state */
 .polaroid-img { width: 100%; height: 220px; object-fit: cover; background: #222; filter: grayscale(100%) brightness(40%) blur(12px); transition: filter 3s ease-in-out; }
 .polaroid-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: #222; margin-top: 15px; font-size: 18px; }
 
-/* The revealing state */
+/* The developing state */
 .developing .polaroid-img { filter: grayscale(0%) brightness(100%) blur(0px); }
+
+/* Fully developed (used for the gallery) */
+.developed-img { filter: grayscale(0%) brightness(100%) blur(0px) !important; }
 
 /* FINAL SLIDE: SCROLLABLE GALLERY */
 .scrollable-gallery {
     width: 100%;
-    max-height: 60vh; /* Keeps it within the card */
+    max-height: 60vh; 
     overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
     display: grid;
-    grid-template-columns: 1fr; /* 1 column on mobile */
+    grid-template-columns: 1fr; 
     gap: 20px;
-    opacity: 0; transform: translateY(20px); transition: all 1s ease 1s; /* Animates in */
+    opacity: 0; transform: translateY(20px); transition: all 1s ease 1s; 
 }
 
 @media(min-width: 600px) {
-    .scrollable-gallery { grid-template-columns: 1fr 1fr; } /* 2 columns on laptops/tablets */
+    .scrollable-gallery { grid-template-columns: 1fr 1fr; } 
 }
 
-/* Subtle staggered rotation for gallery items */
-.scrollable-gallery .polaroid-frame { margin-bottom: 0; }
+.scrollable-gallery .polaroid-frame { margin-bottom: 0; cursor: default; }
 .scrollable-gallery .polaroid-frame:nth-child(even) { transform: rotate(2deg); }
 .scrollable-gallery .polaroid-frame:nth-child(odd) { transform: rotate(-2deg); }
 .scrollable-gallery .polaroid-frame:hover { transform: scale(1.05) rotate(0deg); z-index: 10; position: relative; }
@@ -75,14 +76,6 @@ p { font-weight: 300; font-size: 16px; margin-bottom: 30px; color: #e0e0e0; }
 .scrollable-gallery::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
 .scrollable-gallery::-webkit-scrollbar-thumb { background: rgba(255,107,129,0.5); border-radius: 10px; }
 .scrollable-gallery::-webkit-scrollbar-thumb:hover { background: rgba(255,107,129,1); }
-
-
-/* HOLD TO REVEAL RING */
-.hold-container { position: relative; width: 150px; height: 150px; margin: 0 auto 20px auto; display: flex; justify-content: center; align-items: center; }
-.hold-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 6px solid rgba(255,107,129,0.2); border-top-color: transparent; border-right-color: transparent; transform: rotate(-45deg); opacity: 0; transition: 0.1s; pointer-events: none; }
-.heart-btn { font-size: 80px; cursor: pointer; user-select: none; -webkit-user-select: none; animation: pulseLock 1.5s infinite alternate; transition: transform 0.1s; }
-.holding .hold-ring { opacity: 1; }
-.holding .heart-btn { transform: scale(0.9); animation: none; }
 
 
 /* Other Games */
