@@ -1,94 +1,133 @@
-// 1. Password Logic
+// 1. Ambient Background Hearts
+function createAmbientHearts() {
+    const container = document.getElementById('floating-hearts-container');
+    setInterval(() => {
+        const heart = document.createElement('div');
+        heart.classList.add('ambient-heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 3 + 5) + 's';
+        heart.style.fontSize = (Math.random() * 15 + 10) + 'px';
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 8000);
+    }, 400);
+}
+window.onload = createAmbientHearts;
+
+// 2. Password Logic
 function checkPassword() {
     const input = document.getElementById('heart-password').value.toLowerCase().trim();
     const errorMsg = document.getElementById('pwd-error');
-    
-    // The password is 'moongfali'
     if(input === 'moongfali') {
         showPage('intro-screen');
     } else {
         errorMsg.classList.remove('hidden');
-        // Re-trigger shake animation
         errorMsg.style.animation = 'none';
-        errorMsg.offsetHeight; /* trigger reflow */
+        errorMsg.offsetHeight; 
         errorMsg.style.animation = null; 
     }
 }
 
-// 2. Start Video & Audio Experience
+// 3. Start Experience
 function startExperience() {
     let video = document.getElementById("bg-video");
-    
     if (video) {
         video.muted = false;
         video.volume = 0.8; 
         video.play().catch(error => console.log("Video play failed:", error));
     }
-    
-    showPage('page1');
+    showPage('page2');
 }
 
-// 3. Page Navigation Logic
+// 4. Page Navigation
 function showPage(pageId) {
-    const pages = document.querySelectorAll('.glass-card');
-    pages.forEach(page => {
+    document.querySelectorAll('.glass-card').forEach(page => {
         page.classList.remove('active');
         page.classList.add('hidden');
     });
-
     const nextPage = document.getElementById(pageId);
     nextPage.classList.remove('hidden');
     nextPage.classList.add('active');
 
-    // Final Confetti
-    if (pageId === 'page20') {
+    // Final Confetti Burst
+    if (pageId === 'page24') {
         let crackers = document.getElementById("cracker-sound");
         if(crackers) {
             crackers.volume = 1.0;
-            crackers.play().catch(error => console.log("Cracker sound failed:", error));
+            crackers.play().catch(e => console.log(e));
         }
         startCrazyConfetti();
     }
 }
 
-// 4. Game 1: Love Slider Logic
+// 5. Game 1: Balloon Pop
+let balloonsPopped = 0;
+function popBalloon(element) {
+    element.classList.add('popped');
+    balloonsPopped++;
+    let msg = document.getElementById('balloon-msg');
+    
+    if(balloonsPopped === 1) msg.innerText = "Good! 2 nakhre aur bache hain...";
+    if(balloonsPopped === 2) msg.innerText = "Almost there! Last wala phodo!";
+    if(balloonsPopped === 3) {
+        msg.innerText = "Yay! Nakhre khatam! 🥰";
+        document.getElementById('balloon-btn').classList.remove('hidden');
+    }
+}
+
+// 6. Game 2: Destiny Spinner
+const destinyOptions = ["Movie Date 🎬", "Shopping Spree 🛍️", "Long Drive 🚗", "Coffee Date ☕", "Pizza Party 🍕"];
+let spinInterval;
+function startSpinner() {
+    document.getElementById('spin-btn').classList.add('hidden');
+    const textEl = document.getElementById('spinner-text');
+    let count = 0;
+    
+    // Fast shuffle animation
+    spinInterval = setInterval(() => {
+        textEl.innerText = destinyOptions[count % destinyOptions.length];
+        count++;
+    }, 100);
+
+    // Stop on the rigged answer after 3 seconds
+    setTimeout(() => {
+        clearInterval(spinInterval);
+        textEl.innerText = "Forever with Kartikey ❤️";
+        textEl.style.color = "#ff6b81";
+        textEl.style.fontSize = "26px";
+        document.getElementById('spinner-next-btn').classList.remove('hidden');
+    }, 3000);
+}
+
+// 7. Game 3: Love Slider
 function checkSlider() {
     let val = document.getElementById('love-slider').value;
     let text = document.getElementById('slider-text');
     let btn = document.getElementById('slider-btn');
     
     text.innerText = val + '%';
-    
     if(val == 100) {
-        text.innerText = "100%?! Aww, I love you! 🥰";
+        text.innerText = "100%?! I love you too! 🥰";
         btn.classList.remove('hidden');
     } else {
         btn.classList.add('hidden');
     }
 }
 
-// 5. Game 2: Box Game Logic
-function wrongBox(element) {
-    element.innerHTML = "❌";
-    document.getElementById('card-msg').innerText = "Oops! Try another one! 😜";
-    element.style.pointerEvents = "none";
-    element.style.opacity = "0.5";
+// 8. Game 4: 3D Flip Cards
+function flipWrong(element) {
+    element.classList.add('flipped');
+    document.getElementById('card-msg').innerText = "Oops! Not here! 😜";
 }
 
-function rightBox(element) {
-    element.innerHTML = "❤️";
-    element.style.transform = "scale(1.2)";
-    element.style.borderColor = "#ff4757";
-    element.style.background = "rgba(255, 71, 87, 0.2)";
+function flipRight(element) {
+    element.classList.add('flipped');
     document.getElementById('card-msg').innerText = "You found my heart! 💘";
     document.getElementById('card-btn').classList.remove('hidden');
-    
-    // Disable other boxes
-    let boxes = document.querySelectorAll('.game-box');
-    boxes.forEach(box => box.style.pointerEvents = "none");
+    document.querySelectorAll('.flip-card').forEach(card => card.style.pointerEvents = "none");
 }
 
-// 6. Runaway Button Logic
+// 9. Runaway Button
 const runawayButtons = document.querySelectorAll('.runaway-btn');
 runawayButtons.forEach(btn => {
     btn.addEventListener('mouseover', moveButton);
@@ -99,54 +138,35 @@ function moveButton(e) {
     e.preventDefault(); 
     const btn = e.target;
     btn.classList.add('moving');
-
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
     
-    const btnWidth = btn.offsetWidth || 100;
-    const btnHeight = btn.offsetHeight || 50;
+    const maxX = window.innerWidth - (btn.offsetWidth || 100) - 20;
+    const maxY = window.innerHeight - (btn.offsetHeight || 50) - 20;
     
-    const maxX = windowWidth - btnWidth - 20;
-    const maxY = windowHeight - btnHeight - 20;
-
-    const randomX = Math.max(10, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(10, Math.floor(Math.random() * maxY));
-    
-    btn.style.left = randomX + 'px';
-    btn.style.top = randomY + 'px';
+    btn.style.left = Math.max(10, Math.floor(Math.random() * maxX)) + 'px';
+    btn.style.top = Math.max(10, Math.floor(Math.random() * maxY)) + 'px';
 }
 
-// 7. Subtle 3D Tilt Effect on Desktop
+// 10. 3D Tilt Effect on Desktop
 document.addEventListener("mousemove", (e) => {
-    const cards = document.querySelectorAll(".tilt-card");
-    cards.forEach(card => {
-        let x = (window.innerWidth / 2 - e.pageX) / 30;
-        let y = (window.innerHeight / 2 - e.pageY) / 30;
+    document.querySelectorAll(".tilt-card").forEach(card => {
+        let x = (window.innerWidth / 2 - e.pageX) / 40;
+        let y = (window.innerHeight / 2 - e.pageY) / 40;
         card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
     });
 });
 
-// 8. Premium Confetti
+// 11. Premium Romantic Confetti
 function startCrazyConfetti() {
-    var duration = 10 * 1000;
+    var duration = 15 * 1000;
     var animationEnd = Date.now() + duration;
-    var defaults = { 
-        startVelocity: 30, 
-        spread: 360, 
-        ticks: 60, 
-        zIndex: 9999,
-        colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffd700'] 
-    };
+    var defaults = { startVelocity: 35, spread: 360, ticks: 80, zIndex: 9999, colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffffff', '#ffd700'] };
 
-    function randomInRange(min, max) {
-        return Math.random() * (max - min) + min;
-    }
+    function randomInRange(min, max) { return Math.random() * (max - min) + min; }
 
     var interval = setInterval(function() {
         var timeLeft = animationEnd - Date.now();
         if (timeLeft <= 0) return clearInterval(interval);
-
-        var particleCount = 50 * (timeLeft / duration);
+        var particleCount = 60 * (timeLeft / duration);
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
     }, 250);
