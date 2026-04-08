@@ -10,7 +10,6 @@
 </head>
 <body>
 
-    <!-- Cinematic Background Video -->
     <div class="video-container">
         <video autoplay loop muted playsinline id="bg-video">
             <source src="background.mp4" type="video/mp4">
@@ -18,12 +17,10 @@
         <div class="video-overlay"></div>
     </div>
     
-    <!-- Floating Hearts Background Layer -->
-    <div id="floating-hearts-container"></div>
-
+    <div id="floating-petals-container"></div>
     <audio id="cracker-sound"><source src="crackers.mp3" type="audio/mpeg"></audio>
 
-    <!-- SLIDE 0: PASSWORD SCREEN -->
+    <!-- SLIDE 0: PASSWORD -->
     <div id="password-screen" class="glass-card active tilt-card">
         <div class="lock-icon">🔒</div>
         <h1>Unlock Kartikey's Heart</h1>
@@ -33,18 +30,46 @@
         <p id="pwd-error" class="hidden error-text">Galat password! Try again Pooja ji 😉</p>
     </div>
 
-    <!-- SLIDE 1: Intro -->
+    <!-- GAME 1: FINGERPRINT -->
+    <div id="fingerprint-screen" class="glass-card hidden tilt-card">
+        <div class="emoji-hero" style="font-size: 80px;">👆</div>
+        <h1>Biometric Verification</h1>
+        <p>Hold your thumb on the scanner to confirm your identity.</p>
+        <div class="fingerprint-box" id="scanner-box">
+            <div class="scan-line" id="scan-line"></div>
+            <p>HOLD HERE</p>
+        </div>
+        <p id="fingerprint-msg" class="game-text">Waiting for scan...</p>
+        <div class="button-container">
+            <button id="scan-btn" class="btn yes hidden glow-btn" onclick="showPage('intro-screen')">Access Granted ✨</button>
+        </div>
+    </div>
+
+    <!-- SLIDE 1: INTRO (TYPEWRITER EFFECT) -->
     <div id="intro-screen" class="glass-card hidden">
-        <h1>Ek special sawal hai... 🙈</h1>
-        <p>Turn the volume up, brightness up, and open your heart! ❤️🔊</p>
-        <button class="btn yes glow-btn" onclick="startExperience()">Open for Kartikey ✨</button>
+        <h1 id="typewriter-title" class="typing-cursor"></h1>
+        <p id="typewriter-text" style="min-height: 50px;"></p>
+        <button id="intro-btn" class="btn yes glow-btn hidden" onclick="showPage('polaroid-screen')">Start the Journey ✨</button>
+    </div>
+
+    <!-- NEW GAME 2: POLAROID REVEAL -->
+    <div id="polaroid-screen" class="glass-card hidden">
+        <h1>Developing a Memory... 📸</h1>
+        <p>Tap and hold the blank photo to develop it.</p>
+        <div class="polaroid-frame" id="polaroid-frame" onclick="developPhoto()">
+            <!-- Uses your uploaded us.jpg file -->
+            <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" id="polaroid-img" onerror="this.src='giphy.gif'">
+            <div class="polaroid-caption">My Favorite Person ❤️</div>
+        </div>
+        <div class="button-container">
+            <button id="polaroid-btn" class="btn yes hidden glow-btn" onclick="showPage('page2')">You're Beautiful 🥺</button>
+        </div>
     </div>
     
-    <!-- SLIDES 2 to 6: Teasing Begins -->
+    <!-- SLIDES 2 to 6: Teasing -->
     <div id="page2" class="glass-card hidden">
         <img src="giphy.gif" alt="Cute" class="floating">
         <h1>Hey Moongfali, will you officially be mine forever? 😉</h1>
-        <p>- Your future everything is asking...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page3')">No</button>
@@ -64,7 +89,6 @@
     <div id="page4" class="glass-card hidden">
         <img src="giphy (2).gif" alt="Thinking" class="floating">
         <h1>Are you seriously ignoring this cute face? 🤨</h1>
-        <p>Soch lo Pooja ji, I'm a limited edition piece...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page5')">No</button>
@@ -74,7 +98,6 @@
     <div id="page5" class="glass-card hidden">
         <div class="emoji-hero">🛍️</div>
         <h1>Shopping ke saare bags main uthaunga!</h1>
-        <p>Aur bina complain kiye aesthetic pictures bhi click karunga 📸</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page6')">No</button>
@@ -84,14 +107,13 @@
     <div id="page6" class="glass-card hidden">
         <img src="giphy (3).gif" alt="Pizza" class="floating">
         <h1>Main apni favourite hoodie bhi de dunga tumhe! 🧥</h1>
-        <p>Ab toh haan bol do yaar...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page7')">No</button>
         </div>
     </div>
 
-    <!-- SLIDE 7: GAME 1 - BALLOON POP -->
+    <!-- GAME 3: BALLOON POP -->
     <div id="page7" class="glass-card hidden">
         <h1>Pop Your Tantrums! 🎈</h1>
         <p>Pop these 3 balloons (tumhare nakhre) to proceed!</p>
@@ -102,15 +124,29 @@
         </div>
         <p id="balloon-msg" class="game-text">Balloons left: 3</p>
         <div class="button-container">
-            <button id="balloon-btn" class="btn yes hidden glow-btn" onclick="showPage('page8')">Next ❤️</button>
+            <button id="balloon-btn" class="btn yes hidden glow-btn" onclick="showPage('scratch-screen')">Next ❤️</button>
         </div>
     </div>
 
-    <!-- SLIDES 8 to 12: More Bribes -->
+    <!-- NEW GAME 4: DIGITAL SCRATCH CARD -->
+    <div id="scratch-screen" class="glass-card hidden">
+        <h1>A Secret Message 🤫</h1>
+        <p>Scratch the silver foil to reveal what I really think about you...</p>
+        <div class="scratch-container">
+            <div class="scratch-content">
+                <h2>Tum Kartikey ki jaan ho! <br>💖🥜</h2>
+            </div>
+            <canvas id="scratch-pad" width="280" height="150"></canvas>
+        </div>
+        <div class="button-container">
+            <button id="scratch-btn" class="btn yes hidden glow-btn" onclick="showPage('page8')" style="margin-top: 15px;">Aww, Next! 🥰</button>
+        </div>
+    </div>
+
+    <!-- SLIDES 8 to 11 -->
     <div id="page8" class="glass-card hidden">
         <img src="giphy (4).gif" alt="Sleeping" class="floating">
         <h1>Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
-        <p>Aur tumhare bache hue nakhre bhi jhelunga. Deal?</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page9')">No</button>
@@ -120,7 +156,6 @@
     <div id="page9" class="glass-card hidden">
         <div class="emoji-hero">🧘‍♂️</div>
         <h1>Tumhare mood swings bhi hass ke seh lunga!</h1>
-        <p>Aur chocolates hamesha ready rakhunga 🍫</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page10')">No</button>
@@ -128,9 +163,8 @@
     </div>
 
     <div id="page10" class="glass-card hidden">
-        <img src="giphy (5).gif" alt="Talking" class="floating">
-        <h1>Uff, Pooja ji! Ek toh itni cute ho upar se itne nakhre! 🙄</h1>
-        <p>Thoda toh reham khao is aashiq par...</p>
+        <img src="giphy (6).gif" alt="Sad" class="floating">
+        <h1>Sachi bata raha hoon, I'll kidnap you! 😤</h1>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page11')">No</button>
@@ -138,43 +172,38 @@
     </div>
 
     <div id="page11" class="glass-card hidden">
-        <img src="giphy (6).gif" alt="Sad" class="floating">
-        <h1>Sachi bata raha hoon, I'll kidnap you! 😤</h1>
-        <p>Pyar se maan jao meri Moongfali 🥜</p>
+        <img src="giphy (7).gif" alt="Crying" class="floating">
+        <h1>Okay fine. Devdas ban jaunga main ab. 😭</h1>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page12')">No</button>
         </div>
     </div>
 
+    <!-- GAME 5: COMPATIBILITY ANALYZER -->
     <div id="page12" class="glass-card hidden">
-        <img src="giphy (7).gif" alt="Crying" class="floating">
-        <h1>Okay fine. Devdas ban jaunga main ab. 😭</h1>
-        <p>Dekha nahi jata mera rona?</p>
+        <h1>Love Compatibility 📊</h1>
+        <div class="compat-box"><div class="compat-fill" id="compat-fill"></div></div>
+        <p id="compat-text" class="game-text">0%</p>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page13')">No</button>
+            <button class="btn no glow-btn" onclick="startAnalyzer()" id="analyze-btn">Analyze</button>
+            <button id="compat-next-btn" class="btn yes hidden glow-btn" onclick="showPage('page13')">See Destiny ✨</button>
         </div>
     </div>
 
-    <!-- SLIDE 13: GAME 2 - DESTINY SPINNER -->
+    <!-- GAME 6: DESTINY SPINNER -->
     <div id="page13" class="glass-card hidden">
         <h1>The Destiny Spinner 🎰</h1>
-        <p>Let's see what the universe has written for you.</p>
-        <div class="spinner-box">
-            <h2 id="spinner-text">❓❓❓</h2>
-        </div>
+        <div class="spinner-box"><h2 id="spinner-text">❓❓❓</h2></div>
         <div class="button-container">
             <button id="spin-btn" class="btn no glow-btn" onclick="startSpinner()">Spin It!</button>
             <button id="spinner-next-btn" class="btn yes hidden glow-btn" onclick="showPage('page14')">Proceed 😌</button>
         </div>
     </div>
 
-    <!-- SLIDES 14 to 17 -->
     <div id="page14" class="glass-card hidden">
         <div class="emoji-hero">✨</div>
         <h1>Dekha? "Forever with Kartikey"</h1>
-        <p>Fate has spoken. You can't fight destiny...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page15')">No</button>
@@ -184,58 +213,30 @@
     <div id="page15" class="glass-card hidden">
         <img src="giphy (8).gif" alt="Angry" class="floating">
         <h1>Bas bahut hua! The 'No' button is now banned. 🚫</h1>
-        <p>It's officially illegal to reject me.</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page16')">No</button>
         </div>
     </div>
 
-    <!-- SLIDE 16: GAME 3 - LOVE SLIDER -->
+    <!-- GAME 7: LOVE SLIDER -->
     <div id="page16" class="glass-card hidden">
         <div class="emoji-hero">🥺</div>
-        <h1>Achha ruko... Ek sach batao.</h1>
-        <p>Kitna pyar karti ho Kartikey se?</p>
+        <h1>Achha ruko... Kitna pyar karti ho?</h1>
         <input type="range" id="love-slider" min="0" max="100" value="0" oninput="checkSlider()">
         <p id="slider-text" class="game-text">0%</p>
         <div class="button-container">
-            <button id="slider-btn" class="btn yes hidden glow-btn" onclick="showPage('page17')">Next ❤️</button>
+            <button id="slider-btn" class="btn yes hidden glow-btn" onclick="showPage('page18')">Next ❤️</button>
         </div>
     </div>
 
-    <div id="page17" class="glass-card hidden">
-        <div class="emoji-hero">🥰</div>
-        <h1>Aha! 100%? Mujhe pata tha!</h1>
-        <p>Jab itna pyar karti ho, toh nakhre kyun? 😏</p>
-        <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page18')">No</button>
-        </div>
-    </div>
-
-    <!-- SLIDE 18: GAME 4 - 3D FLIP CARDS -->
+    <!-- GAME 8: 3D FLIP CARDS -->
     <div id="page18" class="glass-card hidden">
         <h1>Find My Heart! 🔍</h1>
-        <p>Tap a card to find where my heart is hidden.</p>
         <div class="flip-cards-container">
-            <div class="flip-card" onclick="flipWrong(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">?</div>
-                    <div class="flip-card-back">❌</div>
-                </div>
-            </div>
-            <div class="flip-card" onclick="flipRight(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">?</div>
-                    <div class="flip-card-back">💖</div>
-                </div>
-            </div>
-            <div class="flip-card" onclick="flipWrong(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">?</div>
-                    <div class="flip-card-back">❌</div>
-                </div>
-            </div>
+            <div class="flip-card" onclick="flipWrong(this)"><div class="flip-card-inner"><div class="flip-card-front">?</div><div class="flip-card-back">❌</div></div></div>
+            <div class="flip-card" onclick="flipRight(this)"><div class="flip-card-inner"><div class="flip-card-front">?</div><div class="flip-card-back">💖</div></div></div>
+            <div class="flip-card" onclick="flipWrong(this)"><div class="flip-card-inner"><div class="flip-card-front">?</div><div class="flip-card-back">❌</div></div></div>
         </div>
         <p id="card-msg" class="game-text"></p>
         <div class="button-container">
@@ -243,14 +244,12 @@
         </div>
     </div>
 
-    <!-- SLIDES 19 to 25: The Tables Turn -->
+    <!-- THE TABLES TURN -->
     <div id="page19" class="glass-card hidden">
         <div class="emoji-hero">💍</div>
         <h1>Wow, you found it!</h1>
-        <p>Mera dil hamesha se tumhare paas hi tha, Moongfali.</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
-            <!-- TABLES TURN HERE -->
             <button class="btn no" onclick="showPage('page20')">No</button>
         </div>
     </div>
@@ -258,7 +257,6 @@
     <div id="page20" class="glass-card hidden">
         <img src="giphy (9).gif" alt="Magic" class="floating">
         <h1>Dekha? The universe is taking over! 🌌</h1>
-        <p>The rules are officially changing for you, darling...</p>
         <div class="button-container">
             <button class="btn yes" onclick="showPage('page21')">Yes</button>
             <button class="btn no runaway-btn">No</button>
@@ -268,7 +266,6 @@
     <div id="page21" class="glass-card hidden">
         <img src="giphy (10).gif" alt="Smug" class="floating">
         <h1>Haha! You are trapped by my love! ✨</h1>
-        <p>Bhag ke kahan jaogi meri Moongfali? 😈</p>
         <div class="button-container">
             <button class="btn yes" onclick="showPage('page22')">Yes</button>
             <button class="btn no runaway-btn">No</button>
@@ -277,8 +274,7 @@
 
     <div id="page22" class="glass-card hidden">
         <img src="giphy (11).gif" alt="Hug" class="floating">
-        <h1>Maan liya na ki I am the best? 💖</h1>
-        <p>There is absolutely no escape from my hugs...</p>
+        <h1>There is absolutely no escape...</h1>
         <div class="button-container">
             <button class="btn yes" onclick="showPage('page23')">Yes</button>
             <button class="btn no runaway-btn">No</button>
@@ -288,18 +284,16 @@
     <div id="page23" class="glass-card hidden">
         <img src="giphy (12).gif" alt="Love" class="floating">
         <h1>Just look into my eyes and click YES! 😌</h1>
-        <p>Make me the luckiest guy alive today.</p>
         <div class="button-container">
-            <!-- Final click -->
             <button class="btn yes glow-btn" onclick="showPage('page24')">Yes</button>
             <button class="btn no runaway-btn">No</button>
         </div>
     </div>
 
-    <!-- SLIDE 24: FINAL YES -->
+    <!-- FINAL YES -->
     <div id="page24" class="glass-card hidden final-card">
         <img src="giphy (13).gif" alt="Happy" class="floating premium-glow">
-        <h1>I knew it! Tumhara dil bhi mere paas hi hai! 🎉💖</h1>
+        <h1 id="final-typewriter" class="typing-cursor"></h1>
         <p class="final-text">Kartikey ❤️ His Moongfali 🥜</p>
     </div>
 
