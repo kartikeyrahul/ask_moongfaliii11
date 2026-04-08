@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <!-- SLIDES 5 & 6 (GIFs Restored) -->
+    <!-- SLIDES 5 & 6 -->
     <div id="page5" class="glass-card hidden">
         <div class="emoji-hero">🛍️</div>
         <h1>Shopping ke saare bags main uthaunga!</h1>
@@ -144,7 +144,7 @@
         </div>
     </div>
 
-    <!-- SLIDES 8 to 11 (GIFs Restored) -->
+    <!-- SLIDES 8 to 11 -->
     <div id="page8" class="glass-card hidden">
         <img src="giphy (4).gif" alt="Sleeping" class="floating">
         <h1>Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
@@ -293,7 +293,7 @@
         </div>
     </div>
 
-    <!-- NEW FINAL SLIDE: TAP & HOLD GALLERY REVEAL -->
+    <!-- NEW FINAL SLIDE: THE ULTIMATE POLAROID REVEAL -->
     <div id="page24" class="glass-card hidden final-card" style="padding-bottom: 20px;">
         
         <!-- State 1: The Prompt -->
@@ -307,18 +307,24 @@
             <p id="hold-text" class="game-text" style="font-size: 16px;">Hold to reveal...</p>
         </div>
 
-        <!-- State 2: The Collage Reveal -->
+        <!-- State 2: The Polaroid & Collage Reveal -->
         <div id="gallery-container" class="hidden">
-            <div class="collage-wrapper">
-                <!-- Ensure these 5 images are uploaded to your GitHub! -->
+            <div class="collage-wrapper" id="final-collage">
+                <!-- 4 background pics -->
                 <img src="shopping.jpg" class="collage-pic pic1" onerror="this.src='us.jpg'">
                 <img src="nakhre.jpg" class="collage-pic pic2" onerror="this.src='us.jpg'">
                 <img src="destiny.jpg" class="collage-pic pic3" onerror="this.src='us.jpg'">
                 <img src="forever.jpg" class="collage-pic pic4" onerror="this.src='us.jpg'">
-                <img src="us.jpg" class="collage-pic pic-center" onerror="this.src='us.jpg'">
+                
+                <!-- Center Polaroid -->
+                <div class="collage-pic pic-center final-polaroid" id="final-polaroid">
+                    <img src="us.jpg" class="polaroid-img" onerror="this.src='giphy.gif'">
+                    <div class="polaroid-caption">My Moongfali ❤️</div>
+                </div>
             </div>
+            
             <div class="final-text-container">
-                <h1 id="final-typewriter" class="typing-cursor" style="font-size: 24px; margin-top: 15px;"></h1>
+                <h1 id="final-typewriter" class="typing-cursor" style="font-size: 24px; margin-top: 20px; text-shadow: 0 4px 10px rgba(0,0,0,0.8);"></h1>
                 <p class="final-text" style="margin-bottom: 0;">Kartikey ❤️ His Moongfali 🥜</p>
             </div>
         </div>
