@@ -49,21 +49,8 @@
     <div id="intro-screen" class="glass-card hidden">
         <h1 id="typewriter-title" class="typing-cursor"></h1>
         <p id="typewriter-text" style="min-height: 50px;"></p>
-        <button id="intro-btn" class="btn yes glow-btn hidden" onclick="showPage('polaroid-screen')">Start the Journey ✨</button>
-    </div>
-
-    <!-- GAME 2: TRUE POLAROID REVEAL -->
-    <div id="polaroid-screen" class="glass-card hidden">
-        <h1>Developing a Memory... 📸</h1>
-        <p>Tap and <b>HOLD</b> the blank photo to develop it.</p>
-        <div class="polaroid-frame single-game-polaroid" id="game2-polaroid">
-            <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" onerror="this.src='giphy.gif'">
-            <div class="polaroid-caption">My Favorite Person ❤️</div>
-        </div>
-        <p id="polaroid-msg" class="game-text" style="font-size: 16px;">Keep holding...</p>
-        <div class="button-container">
-            <button id="polaroid-btn" class="btn yes hidden glow-btn" onclick="showPage('page2')">You're Beautiful 🥺</button>
-        </div>
+        <!-- Jump straight to the story now -->
+        <button id="intro-btn" class="btn yes glow-btn hidden" onclick="showPage('page2')">Start the Journey ✨</button>
     </div>
     
     <!-- SLIDES 2 to 4 -->
@@ -115,7 +102,7 @@
         </div>
     </div>
 
-    <!-- GAME 3: BALLOON POP -->
+    <!-- GAME 2: BALLOON POP -->
     <div id="page7" class="glass-card hidden">
         <h1>Pop Your Tantrums! 🎈</h1>
         <p>Pop these 3 balloons (tumhare nakhre) to proceed!</p>
@@ -130,7 +117,7 @@
         </div>
     </div>
 
-    <!-- GAME 4: SCRATCH CARD -->
+    <!-- GAME 3: SCRATCH CARD -->
     <div id="scratch-screen" class="glass-card hidden">
         <h1>A Secret Message 🤫</h1>
         <p>Scratch the silver foil to reveal what I really think about you...</p>
@@ -183,7 +170,7 @@
         </div>
     </div>
 
-    <!-- GAME 5: COMPATIBILITY ANALYZER -->
+    <!-- GAME 4: COMPATIBILITY ANALYZER -->
     <div id="page12" class="glass-card hidden">
         <h1>Love Compatibility 📊</h1>
         <div class="compat-box"><div class="compat-fill" id="compat-fill"></div></div>
@@ -194,7 +181,7 @@
         </div>
     </div>
 
-    <!-- GAME 6: DESTINY SPINNER -->
+    <!-- GAME 5: DESTINY SPINNER -->
     <div id="page13" class="glass-card hidden">
         <h1>The Destiny Spinner 🎰</h1>
         <div class="spinner-box"><h2 id="spinner-text">❓❓❓</h2></div>
@@ -223,7 +210,7 @@
         </div>
     </div>
 
-    <!-- GAME 7: LOVE SLIDER -->
+    <!-- GAME 6: LOVE SLIDER -->
     <div id="page16" class="glass-card hidden">
         <div class="emoji-hero">🥺</div>
         <h1>Achha ruko... Kitna pyar karti ho?</h1>
@@ -234,7 +221,7 @@
         </div>
     </div>
 
-    <!-- GAME 8: 3D FLIP CARDS -->
+    <!-- GAME 7: 3D FLIP CARDS -->
     <div id="page18" class="glass-card hidden">
         <h1>Find My Heart! 🔍</h1>
         <div class="flip-cards-container">
@@ -294,47 +281,50 @@
         </div>
     </div>
 
-    <!-- NEW FINAL SLIDE: SCROLLABLE GALLERY REVEAL -->
+    <!-- THE GRAND FINALE: POLAROID INTO GALLERY -->
     <div id="page24" class="glass-card hidden final-card">
         
-        <!-- State 1: The Prompt -->
-        <div id="reveal-prompt" style="width: 100%;">
-            <h1>Almost there...</h1>
-            <p>Press and hold the heart to unlock our forever 💖</p>
-            <div class="hold-container" id="hold-container">
-                <div class="hold-ring" id="hold-ring"></div>
-                <div class="heart-btn" id="hold-heart">❤️</div>
+        <!-- State 1: The Developing Polaroid Game -->
+        <div id="final-polaroid-game" style="width: 100%;">
+            <h1>Developing our Memory... 📸</h1>
+            <p>Tap and <b>HOLD</b> the blank photo to unlock our forever.</p>
+            
+            <div class="polaroid-frame" id="finale-polaroid-frame">
+                <!-- Using your beautiful us.jpg here -->
+                <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" onerror="this.src='giphy.gif'">
+                <div class="polaroid-caption">You & Me ❤️</div>
             </div>
-            <p id="hold-text" class="game-text" style="font-size: 16px;">Hold to reveal...</p>
+            
+            <p id="finale-polaroid-msg" class="game-text" style="font-size: 16px;">Hold to develop...</p>
         </div>
 
-        <!-- State 2: The Scrollable Gallery -->
+        <!-- State 2: The Scrollable Gallery (Hidden until photo develops) -->
         <div id="gallery-container" class="hidden" style="width: 100%;">
             <div class="final-text-container">
                 <h1 id="final-typewriter" class="typing-cursor" style="font-size: 24px;"></h1>
                 <p class="final-text" style="margin-bottom: 20px;">Kartikey ❤️ His Moongfali 🥜</p>
             </div>
 
-            <!-- Beautiful grid gallery, perfectly spaced for all devices -->
+            <!-- Beautiful grid gallery -->
             <div class="scrollable-gallery" id="final-gallery">
                 <div class="polaroid-frame final-pic">
-                    <img src="us.jpg" class="polaroid-img" onerror="this.src='giphy.gif'">
+                    <img src="us.jpg" class="polaroid-img developed-img" onerror="this.src='giphy.gif'">
                     <div class="polaroid-caption">You & Me ❤️</div>
                 </div>
                 <div class="polaroid-frame final-pic">
-                    <img src="shopping.jpg" class="polaroid-img" onerror="this.src='giphy (3).gif'">
+                    <img src="shopping.jpg" class="polaroid-img developed-img" onerror="this.src='giphy (3).gif'">
                     <div class="polaroid-caption">Shopping Partner 🛍️</div>
                 </div>
                 <div class="polaroid-frame final-pic">
-                    <img src="nakhre.jpg" class="polaroid-img" onerror="this.src='giphy (5).gif'">
+                    <img src="nakhre.jpg" class="polaroid-img developed-img" onerror="this.src='giphy (5).gif'">
                     <div class="polaroid-caption">Those Nakhre 🥺</div>
                 </div>
                 <div class="polaroid-frame final-pic">
-                    <img src="destiny.jpg" class="polaroid-img" onerror="this.src='giphy (9).gif'">
+                    <img src="destiny.jpg" class="polaroid-img developed-img" onerror="this.src='giphy (9).gif'">
                     <div class="polaroid-caption">Our Destiny ✨</div>
                 </div>
                 <div class="polaroid-frame final-pic">
-                    <img src="forever.jpg" class="polaroid-img" onerror="this.src='giphy (13).gif'">
+                    <img src="forever.jpg" class="polaroid-img developed-img" onerror="this.src='giphy (13).gif'">
                     <div class="polaroid-caption">Forever ♾️</div>
                 </div>
             </div>
