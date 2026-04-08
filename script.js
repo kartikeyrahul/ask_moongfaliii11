@@ -39,7 +39,7 @@ const runawayButtons = document.querySelectorAll('.runaway-btn');
 runawayButtons.forEach(btn => {
     // Works for both computer mouse and phone touch
     btn.addEventListener('mouseover', moveButton);
-    btn.addEventListener('touchstart', moveButton);
+    btn.addEventListener('touchstart', moveButton, {passive: false});
 });
 
 function moveButton(e) {
