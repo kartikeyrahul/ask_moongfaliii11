@@ -41,7 +41,8 @@
         </div>
         <p id="fingerprint-msg" class="game-text">Waiting for scan...</p>
         <div class="button-container">
-            <button id="scan-btn" class="btn yes hidden glow-btn" onclick="showPage('intro-screen')">Access Granted ✨</button>
+            <!-- THE FIX IS HERE: Changed to onclick="startExperience()" -->
+            <button id="scan-btn" class="btn yes hidden glow-btn" onclick="startExperience()">Access Granted ✨</button>
         </div>
     </div>
 
@@ -57,7 +58,6 @@
         <h1>Developing a Memory... 📸</h1>
         <p>Tap and hold the blank photo to develop it.</p>
         <div class="polaroid-frame" id="polaroid-frame" onclick="developPhoto()">
-            <!-- Uses your uploaded us.jpg file -->
             <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" id="polaroid-img" onerror="this.src='giphy.gif'">
             <div class="polaroid-caption">My Favorite Person ❤️</div>
         </div>
