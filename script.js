@@ -1,92 +1,14 @@
-// Automatically create falling rose petals when page loads
-window.onload = function() {
-    createPetals();
-};
-
-function createPetals() {
-    const container = document.getElementById('petals-container');
-    const petalCount = 35; // Number of petals on screen
-
-    for (let i = 0; i < petalCount; i++) {
-        let petal = document.createElement('div');
-        petal.classList.add('petal');
-        
-        // Randomize size, position, and animation speed
-        let size = Math.random() * 10 + 10; // 10px to 20px
-        petal.style.width = size + 'px';
-        petal.style.height = size + 'px';
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = (Math.random() * 4 + 4) + 's'; // Fall speed (4s to 8s)
-        petal.style.animationDelay = Math.random() * 5 + 's'; // Stagger start times
-        
-        container.appendChild(petal);
-    }
-}
-
-function startExperience() {
-    let video = document.getElementById("bg-video");
-    
-    video.muted = false;
-    video.volume = 0.8; 
-    video.play().catch(error => console.log("Video play failed:", error));
-    
-    showPage('page1');
-}
-
-function showPage(pageId) {
-    const pages = document.querySelectorAll('.glass-card');
-    pages.forEach(page => {
-        page.classList.remove('active');
-        page.classList.add('hidden');
-    });
-
-    const nextPage = document.getElementById(pageId);
-    nextPage.classList.remove('hidden');
-    nextPage.classList.add('active');
-
-    if (pageId === 'yes-page') {
-        let crackers = document.getElementById("cracker-sound");
-        if(crackers) {
-            crackers.volume = 1.0;
-            crackers.play().catch(error => console.log("Cracker sound failed:", error));
-        }
-        startCrazyConfetti();
-    }
-}
-
-const runawayButtons = document.querySelectorAll('.runaway-btn');
-
-runawayButtons.forEach(btn => {
-    btn.addEventListener('mouseover', moveButton);
-    btn.addEventListener('touchstart', moveButton);
-});
-
-function moveButton(e) {
-    e.preventDefault(); 
-    
-    const btn = e.target;
-    btn.classList.add('moving');
-
-    const windowWidth = window.innerWidth;
-    const windowHeight = window.innerHeight;
-    
-    const btnWidth = btn.offsetWidth || 100;
-    const btnHeight = btn.offsetHeight || 50;
-    
-    const maxX = windowWidth - btnWidth - 20;
-    const maxY = windowHeight - btnHeight - 20;
-
-    const randomX = Math.max(10, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(10, Math.floor(Math.random() * maxY));
-    
-    btn.style.left = randomX + 'px';
-    btn.style.top = randomY + 'px';
-}
-
 function startCrazyConfetti() {
     var duration = 10 * 1000;
     var animationEnd = Date.now() + duration;
-    var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 };
+    var defaults = { 
+        startVelocity: 30, 
+        spread: 360, 
+        ticks: 60, 
+        zIndex: 9999,
+        // Premium Romantic Colors: Red, Soft Pink, Deep Pink, Gold
+        colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffd700'] 
+    };
 
     function randomInRange(min, max) {
         return Math.random() * (max - min) + min;
