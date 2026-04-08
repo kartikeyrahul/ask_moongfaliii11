@@ -33,17 +33,23 @@ p { font-weight: 300; font-size: 16px; margin-bottom: 30px; color: #e0e0e0; }
 .holding .heart-btn { transform: scale(0.9); animation: none; }
 
 /* The Expanding Photo Collage */
-.collage-wrapper { position: relative; width: 100%; height: 260px; margin-top: 10px; }
-.collage-pic { position: absolute; width: 120px; height: 120px; object-fit: cover; border-radius: 15px; border: 3px solid rgba(255, 107, 129, 0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.6); top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.collage-wrapper { position: relative; width: 100%; height: 320px; margin-top: 10px; z-index: 10; } /* Increased height so images don't hide text */
+.collage-pic { position: absolute; width: 110px; height: 110px; object-fit: cover; border-radius: 15px; border: 3px solid rgba(255, 107, 129, 0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.6); top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; }
 
-/* Final scatter positions */
-.revealed .pic1 { transform: translate(-100%, -110%) rotate(-15deg) scale(1); opacity: 1; }
-.revealed .pic2 { transform: translate(0%, -120%) rotate(10deg) scale(1); opacity: 1; }
-.revealed .pic3 { transform: translate(-110%, 10%) rotate(-10deg) scale(1); opacity: 1; }
-.revealed .pic4 { transform: translate(10%, 20%) rotate(15deg) scale(1); opacity: 1; }
-.revealed .pic-center { transform: translate(-50%, -60%) rotate(0deg) scale(1.4); opacity: 1; z-index: 10; border-color: #ffd700; box-shadow: 0 0 30px rgba(255, 107, 129, 0.8); }
+/* The Center Polaroid specifically for the finale */
+.final-polaroid { width: 180px; height: auto; padding: 10px 10px 25px 10px; background: white; border: none; border-radius: 5px; opacity: 1 !important; transform: translate(-50%, -50%) scale(1) rotate(0deg); z-index: 5; transition: transform 0.5s ease; box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+.final-polaroid .polaroid-img { width: 100%; height: 160px; object-fit: cover; background: #222; filter: grayscale(100%) brightness(50%) blur(10px); transition: filter 4s ease-in-out; border: none; border-radius: 0; }
+.final-polaroid .polaroid-caption { font-size: 16px; margin-top: 10px; color: #222; font-family: 'Playfair Display', serif; font-weight: bold; }
+.developing .polaroid-img { filter: grayscale(0%) brightness(100%) blur(0px); }
 
-.final-text-container { opacity: 0; transform: translateY(20px); transition: all 1s ease 1s; }
+/* Spread positions pushed far apart so they are totally visible */
+.revealed .pic1 { transform: translate(-140%, -140%) rotate(-20deg) scale(1); opacity: 1; }
+.revealed .pic2 { transform: translate(40%, -150%) rotate(15deg) scale(1); opacity: 1; }
+.revealed .pic3 { transform: translate(-150%, 10%) rotate(-15deg) scale(1); opacity: 1; }
+.revealed .pic4 { transform: translate(50%, 20%) rotate(20deg) scale(1); opacity: 1; }
+.revealed .final-polaroid { transform: translate(-50%, -50%) scale(1.1) rotate(-3deg); }
+
+.final-text-container { opacity: 0; transform: translateY(20px); transition: all 1s ease 1s; position: relative; z-index: 2; }
 .revealed-text { opacity: 1; transform: translateY(0); }
 
 /* Other Games & Elements */
@@ -51,7 +57,6 @@ p { font-weight: 300; font-size: 16px; margin-bottom: 30px; color: #e0e0e0; }
 .polaroid-frame:hover { transform: scale(1.05) rotate(0deg); }
 .polaroid-img { width: 100%; height: 220px; object-fit: cover; background: #222; filter: grayscale(100%) brightness(50%) blur(10px); transition: filter 4s ease-in-out; }
 .polaroid-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: #222; margin-top: 15px; font-size: 18px; }
-.developing .polaroid-img { filter: grayscale(0%) brightness(100%) blur(0px); }
 
 .scratch-container { position: relative; width: 280px; height: 150px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 2px solid rgba(255,107,129,0.5); }
 .scratch-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; justify-content: center; align-items: center; text-align: center; }
