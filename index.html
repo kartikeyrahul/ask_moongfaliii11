@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Only For My Moongfali 🥜💖</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Cinematic Premium Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -24,14 +23,24 @@
         <source src="crackers.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- Welcome Screen -->
-    <div id="intro-screen" class="glass-card active">
+    <!-- NEW: PASSWORD SCREEN -->
+    <div id="password-screen" class="glass-card active tilt-card">
+        <div class="lock-icon">🔒</div>
+        <h1>Unlock Kartikey's Heart</h1>
+        <p>Hint: Tumhara sabse pyara nickname kya hai? 🥜</p>
+        <input type="text" id="heart-password" placeholder="Enter password..." autocomplete="off">
+        <button class="btn yes unlock-btn" onclick="checkPassword()">Unlock 💖</button>
+        <p id="pwd-error" class="hidden error-text">Galat password! Try again Pooja ji 😉</p>
+    </div>
+
+    <!-- Intro Screen -->
+    <div id="intro-screen" class="glass-card hidden">
         <h1>Ek special sawal hai... 🙈</h1>
         <p>Turn the volume up and open your heart! ❤️🔊</p>
         <button class="btn yes" onclick="startExperience()">Open for Kartikey ✨</button>
     </div>
     
-    <!-- STAGE 1 to 9: "Yes" Button Runs Away -->
+    <!-- STAGE 1 to 15: Teasing & Flirting -->
     <div id="page1" class="glass-card hidden">
         <img src="giphy.gif" alt="Cute" class="floating">
         <h1>Hey Moongfali, will you officially be mine forever? 😉</h1>
@@ -63,9 +72,9 @@
     </div>
 
     <div id="page4" class="glass-card hidden">
-        <img src="giphy (3).gif" alt="Pizza" class="floating">
-        <h1>Main apni favourite hoodie bhi de dunga tumhe! 🧥</h1>
-        <p>Ab toh haan bol do yaar...</p>
+        <div class="emoji-hero">🛍️</div>
+        <h1>Shopping ke saare bags main uthaunga!</h1>
+        <p>Aur bina complain kiye tumhare pictures bhi click karunga 📸</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page5')">No</button>
@@ -73,9 +82,9 @@
     </div>
 
     <div id="page5" class="glass-card hidden">
-        <img src="giphy (4).gif" alt="Sleeping" class="floating">
-        <h1>Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
-        <p>Aur tumhare saare tantrums jhelunga. Deal?</p>
+        <img src="giphy (3).gif" alt="Pizza" class="floating">
+        <h1>Main apni favourite hoodie bhi de dunga tumhe! 🧥</h1>
+        <p>Ab toh haan bol do yaar...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page6')">No</button>
@@ -83,9 +92,9 @@
     </div>
 
     <div id="page6" class="glass-card hidden">
-        <img src="giphy (5).gif" alt="Talking" class="floating">
-        <h1>Uff, Pooja ji ke nakhre toh dekho! 🙄</h1>
-        <p>Thoda toh reham khao is aashiq par...</p>
+        <img src="giphy (4).gif" alt="Sleeping" class="floating">
+        <h1>Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
+        <p>Aur tumhare saare tantrums jhelunga. Deal?</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page7')">No</button>
@@ -93,9 +102,9 @@
     </div>
 
     <div id="page7" class="glass-card hidden">
-        <img src="giphy (6).gif" alt="Sad" class="floating">
-        <h1>Sachi bata raha hoon, I'll kidnap you! 😤</h1>
-        <p>Pyar se maan jao meri Moongfali 🥜</p>
+        <div class="emoji-hero">🧘‍♂️</div>
+        <h1>Tumhare mood swings bhi hass ke seh lunga!</h1>
+        <p>Aur chocolates hamesha ready rakhunga 🍫</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page8')">No</button>
@@ -103,9 +112,9 @@
     </div>
 
     <div id="page8" class="glass-card hidden">
-        <img src="giphy (7).gif" alt="Crying" class="floating">
-        <h1>Okay fine. Devdas ban jaunga main ab. 😭</h1>
-        <p>Dekha nahi jata mera rona?</p>
+        <img src="giphy (5).gif" alt="Talking" class="floating">
+        <h1>Uff, Pooja ji ke nakhre toh dekho! 🙄</h1>
+        <p>Thoda toh reham khao is aashiq par...</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page9')">No</button>
@@ -113,59 +122,127 @@
     </div>
 
     <div id="page9" class="glass-card hidden">
-        <img src="giphy (8).gif" alt="Angry" class="floating">
-        <h1>Bas bahut hua! The 'No' button is now banned. 🚫</h1>
-        <p>It's officially illegal to reject Kartikey.</p>
+        <img src="giphy (6).gif" alt="Sad" class="floating">
+        <h1>Sachi bata raha hoon, I'll kidnap you! 😤</h1>
+        <p>Pyar se maan jao meri Moongfali 🥜</p>
         <div class="button-container">
             <button class="btn yes runaway-btn">Yes</button>
             <button class="btn no" onclick="showPage('page10')">No</button>
         </div>
     </div>
 
-    <!-- The Tables Turn! "No" Button Runs Away -->
-
     <div id="page10" class="glass-card hidden">
-        <img src="giphy (9).gif" alt="Magic" class="floating">
-        <h1>Dekha? The universe wants us together! 🌌</h1>
-        <p>Rules are changing for you, darling...</p>
+        <img src="giphy (7).gif" alt="Crying" class="floating">
+        <h1>Okay fine. Devdas ban jaunga main ab. 😭</h1>
+        <p>Dekha nahi jata mera rona?</p>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('page11')">Yes</button>
-            <button class="btn no runaway-btn">No</button>
+            <button class="btn yes runaway-btn">Yes</button>
+            <button class="btn no" onclick="showPage('page11')">No</button>
         </div>
     </div>
 
+    <!-- GAME 1: The Slider -->
     <div id="page11" class="glass-card hidden">
-        <img src="giphy (10).gif" alt="Smug" class="floating">
-        <h1>Haha! You are trapped by my love! ✨</h1>
-        <p>Bhag ke kahan jaogi meri Moongfali? 😈</p>
+        <div class="emoji-hero">🥺</div>
+        <h1>Achha ruko... Ek game khelte hain!</h1>
+        <p>Sach sach batana, kitna miss karti ho mujhe abhi?</p>
+        <input type="range" id="love-slider" min="0" max="100" value="0" oninput="checkSlider()">
+        <p id="slider-text" class="game-text">0%</p>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('page12')">Yes</button>
-            <button class="btn no runaway-btn">No</button>
+            <button id="slider-btn" class="btn yes hidden" onclick="showPage('page12')">Proceed ❤️</button>
         </div>
     </div>
 
     <div id="page12" class="glass-card hidden">
-        <img src="giphy (11).gif" alt="Hug" class="floating">
-        <h1>Maan liya na ki I am the best? 💖</h1>
-        <p>There is absolutely no escape from my hugs...</p>
+        <div class="emoji-hero">🥰</div>
+        <h1>Aha! 100%? Mujhe pata tha!</h1>
+        <p>Jab itna pyar karti ho, toh na kyun bol rahi ho? 😏</p>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('page13')">Yes</button>
+            <button class="btn yes runaway-btn">Yes</button>
+            <button class="btn no" onclick="showPage('page13')">No</button>
+        </div>
+    </div>
+
+    <!-- GAME 2: Find the Heart -->
+    <div id="page13" class="glass-card hidden">
+        <h1>Find My Heart! 🔍</h1>
+        <p>Pick the right box to prove your love for Kartikey.</p>
+        <div class="cards-container">
+            <div class="game-box" onclick="wrongBox(this)">🎁</div>
+            <div class="game-box" id="correct-box" onclick="rightBox(this)">🎁</div>
+            <div class="game-box" onclick="wrongBox(this)">🎁</div>
+        </div>
+        <p id="card-msg" class="game-text"></p>
+        <div class="button-container">
+            <button id="card-btn" class="btn yes hidden" onclick="showPage('page14')">Next ❤️</button>
+        </div>
+    </div>
+
+    <div id="page14" class="glass-card hidden">
+        <div class="emoji-hero">💍</div>
+        <h1>Wow, you found it!</h1>
+        <p>You are definitely my soulmate. Ab toh bhagwan bhi chahte hain hum mil jayein.</p>
+        <div class="button-container">
+            <button class="btn yes runaway-btn">Yes</button>
+            <button class="btn no" onclick="showPage('page15')">No</button>
+        </div>
+    </div>
+
+    <div id="page15" class="glass-card hidden">
+        <img src="giphy (8).gif" alt="Angry" class="floating">
+        <h1>Bas bahut hua! The 'No' button is now banned. 🚫</h1>
+        <p>It's officially illegal to reject Kartikey.</p>
+        <div class="button-container">
+            <button class="btn yes runaway-btn">Yes</button>
+            <!-- From here on, NO button goes to page 16 where tables turn -->
+            <button class="btn no" onclick="showPage('page16')">No</button>
+        </div>
+    </div>
+
+    <!-- STAGE 16 to 20: The Tables Turn! "No" Button Runs Away -->
+    <div id="page16" class="glass-card hidden">
+        <img src="giphy (9).gif" alt="Magic" class="floating">
+        <h1>Dekha? The universe wants us together! 🌌</h1>
+        <p>Rules are changing for you, darling...</p>
+        <div class="button-container">
+            <button class="btn yes" onclick="showPage('page17')">Yes</button>
             <button class="btn no runaway-btn">No</button>
         </div>
     </div>
 
-    <div id="page13" class="glass-card hidden">
+    <div id="page17" class="glass-card hidden">
+        <img src="giphy (10).gif" alt="Smug" class="floating">
+        <h1>Haha! You are trapped by my love! ✨</h1>
+        <p>Bhag ke kahan jaogi meri Moongfali? 😈</p>
+        <div class="button-container">
+            <button class="btn yes" onclick="showPage('page18')">Yes</button>
+            <button class="btn no runaway-btn">No</button>
+        </div>
+    </div>
+
+    <div id="page18" class="glass-card hidden">
+        <img src="giphy (11).gif" alt="Hug" class="floating">
+        <h1>Maan liya na ki I am the best? 💖</h1>
+        <p>There is absolutely no escape from my hugs...</p>
+        <div class="button-container">
+            <button class="btn yes" onclick="showPage('page19')">Yes</button>
+            <button class="btn no runaway-btn">No</button>
+        </div>
+    </div>
+
+    <div id="page19" class="glass-card hidden">
         <img src="giphy (12).gif" alt="Love" class="floating">
         <h1>Just look into my eyes and click YES! 😌</h1>
         <p>Make me the luckiest guy alive today.</p>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('yes-page')">Yes</button>
+            <!-- Final click goes to YES page -->
+            <button class="btn yes" onclick="showPage('page20')">Yes</button>
             <button class="btn no runaway-btn">No</button>
         </div>
     </div>
 
     <!-- Final Page: YES -->
-    <div id="yes-page" class="glass-card hidden">
+    <div id="page20" class="glass-card hidden">
         <img src="giphy (13).gif" alt="Happy" class="floating">
         <h1>I knew it! Tumhara dil bhi mere paas hi hai! 🎉💖</h1>
         <p>Kartikey ❤️ His Moongfali 🥜</p>
