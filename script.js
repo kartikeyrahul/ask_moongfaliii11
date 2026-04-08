@@ -1,4 +1,4 @@
-// --- AUDIO SYSTEM (Web Audio API for UI Sounds) ---
+// --- AUDIO SYSTEM ---
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 let audioCtx;
 function initAudio() { if (!audioCtx) audioCtx = new AudioContext(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
@@ -16,6 +16,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
+// --- PETALS ---
 function createAmbientPetals() {
     const container = document.getElementById('floating-petals-container');
     setInterval(() => {
@@ -47,6 +48,7 @@ function checkPassword() {
     else { errorMsg.classList.remove('hidden'); errorMsg.style.animation = 'none'; errorMsg.offsetHeight; errorMsg.style.animation = null; }
 }
 
+// --- FINGERPRINT GAME ---
 const scannerBox = document.getElementById('scanner-box');
 const scanLine = document.getElementById('scan-line');
 const fingerprintMsg = document.getElementById('fingerprint-msg');
@@ -72,19 +74,50 @@ function startExperience() {
     setTimeout(() => { typeWriter('typewriter-title', "Welcome, My Love... 🙈", 100, () => { typeWriter('typewriter-text', "Turn the volume up, brightness up, and open your heart! ❤️🔊", 50, () => { document.getElementById('intro-btn').classList.remove('hidden'); }); }); }, 500);
 }
 
-function developPhoto() {
-    document.getElementById('polaroid-frame').classList.add('developing');
-    setTimeout(() => { document.getElementById('polaroid-btn').classList.remove('hidden'); }, 4000); 
-}
-
 function showPage(pageId) {
     document.querySelectorAll('.glass-card').forEach(page => { page.classList.remove('active'); page.classList.add('hidden'); });
     const nextPage = document.getElementById(pageId); nextPage.classList.remove('hidden'); nextPage.classList.add('active');
+    
+    // Init games based on page
+    if(pageId === 'polaroid-screen') initGame2Polaroid();
     if(pageId === 'scratch-screen') initScratchCard();
-    if(pageId === 'page24') initHoldReveal(); // Start the final sequence logic
+    if(pageId === 'page24') initHoldReveal(); 
 }
 
-// THE NEW FINAL SEQUENCE LOGIC
+// --- GAME 2: TRUE HOLD-TO-DEVELOP POLAROID ---
+function initGame2Polaroid() {
+    const frame = document.getElementById('game2-polaroid');
+    const msg = document.getElementById('polaroid-msg');
+    const btn = document.getElementById('polaroid-btn');
+    let devTimer; let isDeveloped = false;
+
+    function startDevelop(e) {
+        if(isDeveloped) return;
+        e.preventDefault();
+        frame.classList.add('developing');
+        msg.innerText = "Developing... hold steady!";
+        
+        devTimer = setTimeout(() => {
+            isDeveloped = true;
+            msg.innerText = "Perfect! ❤️";
+            msg.style.color = "#ff6b81";
+            btn.classList.remove('hidden');
+        }, 3000); // Takes 3 seconds to lock in
+    }
+
+    function stopDevelop() {
+        if(!isDeveloped) {
+            clearTimeout(devTimer);
+            frame.classList.remove('developing');
+            msg.innerText = "Keep holding to develop...";
+        }
+    }
+
+    frame.addEventListener('mousedown', startDevelop); frame.addEventListener('touchstart', startDevelop, {passive: false});
+    frame.addEventListener('mouseup', stopDevelop); frame.addEventListener('touchend', stopDevelop); frame.addEventListener('mouseleave', stopDevelop);
+}
+
+// --- FINAL SLIDE: SCROLLABLE GALLERY REVEAL ---
 function initHoldReveal() {
     const holdHeart = document.getElementById('hold-heart');
     const holdRing = document.getElementById('hold-ring');
@@ -131,14 +164,14 @@ function triggerFinalMagic() {
     document.getElementById('reveal-prompt').classList.add('hidden');
     document.getElementById('gallery-container').classList.remove('hidden');
     
-    // 1. Polaroid starts developing
-    const finalPolaroid = document.getElementById('final-polaroid');
-    finalPolaroid.classList.add('developing');
-    
-    // 2. Wait 4 seconds for it to fully develop, then trigger the scatter & confetti
     setTimeout(() => {
-        document.getElementById('final-collage').classList.add('revealed');
-        document.querySelector('.final-text-container').classList.add('revealed-text');
+        // Triggers the gallery entrance animation
+        document.getElementById('final-gallery').classList.add('revealed-gallery');
+        
+        // Adds the developing class to ALL polaroids in the gallery simultaneously!
+        document.querySelectorAll('.final-pic').forEach(pic => {
+            pic.classList.add('developing');
+        });
         
         let crackers = document.getElementById("cracker-sound");
         if(crackers) { crackers.volume = 1.0; crackers.play().catch(e => console.log(e)); }
@@ -148,9 +181,10 @@ function triggerFinalMagic() {
             typeWriter('final-typewriter', "I knew it! Besties and soulmates forever! 🎉💖", 80); 
         }, 500);
         
-    }, 4000);
+    }, 50);
 }
 
+// --- OTHER GAMES ---
 function initScratchCard() {
     const canvas = document.getElementById('scratch-pad'); const ctx = canvas.getContext('2d'); let isDrawing = false;
     ctx.fillStyle = '#b0bec5'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.font = "20px Poppins"; ctx.fillStyle = "#ffffff"; ctx.fillText("Scratch Here 🪙", 70, 80);
