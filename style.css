@@ -13,7 +13,7 @@ body { font-family: 'Poppins', sans-serif; height: 100vh; display: flex; justify
 /* Cards & Text */
 .glass-card { background: rgba(20, 15, 20, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 45px 30px; width: 90%; max-width: 450px; box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 20px rgba(255,107,129,0.1); position: absolute; z-index: 1; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
 .active { display: block; animation: zoomFadeIn 0.8s forwards; }
-.hidden { display: none; }
+.hidden { display: none !important; }
 @keyframes zoomFadeIn { 0% { opacity: 0; transform: translateY(50px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
 
 h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 28px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
@@ -25,32 +25,43 @@ p { font-weight: 300; font-size: 16px; margin-bottom: 30px; color: #e0e0e0; }
 .typing-cursor::after { content: '|'; animation: blink 0.8s infinite; color: #ff6b81; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-/* Polaroid Game */
+/* FINAL SLIDE: Hold To Reveal Gallery */
+.hold-container { position: relative; width: 150px; height: 150px; margin: 0 auto 20px auto; display: flex; justify-content: center; align-items: center; }
+.hold-ring { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%; border: 6px solid rgba(255,107,129,0.2); border-top-color: transparent; border-right-color: transparent; transform: rotate(-45deg); opacity: 0; transition: 0.1s; pointer-events: none; }
+.heart-btn { font-size: 80px; cursor: pointer; user-select: none; -webkit-user-select: none; animation: pulseLock 1.5s infinite alternate; transition: transform 0.1s; }
+.holding .hold-ring { opacity: 1; }
+.holding .heart-btn { transform: scale(0.9); animation: none; }
+
+/* The Expanding Photo Collage */
+.collage-wrapper { position: relative; width: 100%; height: 260px; margin-top: 10px; }
+.collage-pic { position: absolute; width: 120px; height: 120px; object-fit: cover; border-radius: 15px; border: 3px solid rgba(255, 107, 129, 0.8); box-shadow: 0 10px 25px rgba(0,0,0,0.6); top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 0; transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+
+/* Final scatter positions */
+.revealed .pic1 { transform: translate(-100%, -110%) rotate(-15deg) scale(1); opacity: 1; }
+.revealed .pic2 { transform: translate(0%, -120%) rotate(10deg) scale(1); opacity: 1; }
+.revealed .pic3 { transform: translate(-110%, 10%) rotate(-10deg) scale(1); opacity: 1; }
+.revealed .pic4 { transform: translate(10%, 20%) rotate(15deg) scale(1); opacity: 1; }
+.revealed .pic-center { transform: translate(-50%, -60%) rotate(0deg) scale(1.4); opacity: 1; z-index: 10; border-color: #ffd700; box-shadow: 0 0 30px rgba(255, 107, 129, 0.8); }
+
+.final-text-container { opacity: 0; transform: translateY(20px); transition: all 1s ease 1s; }
+.revealed-text { opacity: 1; transform: translateY(0); }
+
+/* Other Games & Elements */
 .polaroid-frame { background: white; padding: 15px 15px 35px 15px; border-radius: 5px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); transform: rotate(-3deg); cursor: pointer; transition: 0.3s; margin: 0 auto 20px auto; width: 250px; }
 .polaroid-frame:hover { transform: scale(1.05) rotate(0deg); }
 .polaroid-img { width: 100%; height: 220px; object-fit: cover; background: #222; filter: grayscale(100%) brightness(50%) blur(10px); transition: filter 4s ease-in-out; }
 .polaroid-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: #222; margin-top: 15px; font-size: 18px; }
 .developing .polaroid-img { filter: grayscale(0%) brightness(100%) blur(0px); }
 
-/* Styling for your Custom Artwork */
-.custom-img {
-    border: 3px solid rgba(255, 107, 129, 0.6);
-    box-shadow: 0 15px 35px rgba(255, 107, 129, 0.4);
-    border-radius: 25px; /* Slightly rounder for the portraits */
-}
-
-/* Scratch Card Game */
 .scratch-container { position: relative; width: 280px; height: 150px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 2px solid rgba(255,107,129,0.5); }
 .scratch-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; justify-content: center; align-items: center; text-align: center; }
 .scratch-content h2 { font-family: 'Playfair Display', serif; color: #ff4757; font-size: 24px; margin: 0; }
 canvas#scratch-pad { position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair; }
 
-/* Fingerprint Game */
 .fingerprint-box { width: 120px; height: 150px; margin: 0 auto 20px auto; border: 2px dashed rgba(255, 107, 129, 0.5); border-radius: 20px; position: relative; display: flex; justify-content: center; align-items: center; cursor: pointer; overflow: hidden; user-select: none; }
 .scan-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: rgba(255, 107, 129, 0.4); border-top: 3px solid #ff6b81; box-shadow: 0 -5px 15px rgba(255, 107, 129, 0.8); transition: height 0.1s linear; }
 .scanning { border-color: #ff6b81; box-shadow: 0 0 20px rgba(255,107,129,0.5); }
 
-/* Buttons & Inputs */
 input[type="text"] { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.4); color: white; font-size: 18px; font-family: 'Poppins'; text-align: center; margin-bottom: 20px; outline: none; }
 .btn { padding: 14px 38px; font-size: 18px; font-weight: 600; font-family: 'Poppins'; border-radius: 30px; border: none; cursor: pointer; transition: 0.3s; z-index: 10; margin: 0 10px; }
 .yes { background: linear-gradient(135deg, #ff4757, #ff6b81); color: white; }
@@ -59,7 +70,6 @@ input[type="text"] { width: 100%; padding: 15px; border-radius: 15px; border: 1p
 .btn:active { transform: scale(0.95); }
 .runaway-btn.moving { position: fixed; z-index: 9999; }
 
-/* Other Elements */
 .floating { width: 220px; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 25px; animation: float 4s infinite; border: 2px solid rgba(255,255,255,0.2); }
 .emoji-hero { font-size: 110px; margin-bottom: 20px; animation: float 4s infinite; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.6)); }
 .lock-icon { font-size: 80px; margin-bottom: 15px; animation: pulseLock 2s infinite alternate; }
