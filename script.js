@@ -1,219 +1,118 @@
-// --- AUDIO SYSTEM ---
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-let audioCtx;
-function initAudio() { if (!audioCtx) audioCtx = new AudioContext(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
-function playBloop() {
-    if (!audioCtx) return;
-    const osc = audioCtx.createOscillator(); const gain = audioCtx.createGain();
-    osc.type = 'sine'; osc.frequency.setValueAtTime(800, audioCtx.currentTime); osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-    gain.gain.setValueAtTime(0.3, audioCtx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Poppins', sans-serif; height: 100vh; display: flex; justify-content: center; align-items: center; overflow: hidden; text-align: center; color: white; perspective: 1000px; background-color: #050505; }
+
+/* Backgrounds */
+.video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; }
+#bg-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+.video-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(10,0,5,0.4) 0%, rgba(0,0,0,0.8) 100%); z-index: -2; }
+#floating-petals-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; overflow: hidden; }
+
+.petal { position: absolute; top: -10%; width: 15px; height: 25px; background: linear-gradient(135deg, #ff0055, #ff4757); border-radius: 15px 0 15px 0; box-shadow: 0 0 10px rgba(255,0,85,0.4); opacity: 0.8; animation: fall linear infinite; }
+@keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; } 10% { opacity: 0.8; } 90% { opacity: 0.8; } 100% { transform: translateY(110vh) rotate(360deg) translateX(50px); opacity: 0; } }
+
+/* Standard Cards */
+.glass-card { background: rgba(20, 15, 20, 0.5); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 30px; padding: 45px 30px; width: 90%; max-width: 450px; box-shadow: 0 25px 50px rgba(0,0,0,0.7), inset 0 0 20px rgba(255,107,129,0.1); position: absolute; z-index: 1; transform-style: preserve-3d; transition: transform 0.1s ease-out; }
+.active { display: block; animation: zoomFadeIn 0.8s forwards; }
+.hidden { display: none !important; }
+@keyframes zoomFadeIn { 0% { opacity: 0; transform: translateY(50px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* FINAL SLIDE OVERRIDES */
+.final-card {
+    max-width: 700px; 
+    max-height: 90vh; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 20px;
 }
 
-document.addEventListener('click', (e) => {
-    if (e.target.tagName === 'BUTTON' || e.target.classList.contains('balloon') || e.target.classList.contains('flip-card') || e.target.tagName === 'CANVAS') {
-        initAudio(); playBloop();
-    }
-});
+h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 28px; font-weight: 700; margin-bottom: 15px; text-shadow: 0 4px 15px rgba(0,0,0,0.8); }
+p { font-weight: 300; font-size: 16px; margin-bottom: 30px; color: #e0e0e0; }
+.game-text { font-size: 20px; font-weight: 600; color: #ff6b81; margin: 20px 0; }
+.error-text { color: #ff4757 !important; font-weight: 600; margin-top: 15px; animation: shake 0.4s; }
+.typing-cursor::after { content: '|'; animation: blink 0.8s infinite; color: #ff6b81; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-// --- PETALS ---
-function createAmbientPetals() {
-    const container = document.getElementById('floating-petals-container');
-    setInterval(() => {
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
-        petal.style.left = Math.random() * 100 + 'vw';
-        petal.style.animationDuration = (Math.random() * 4 + 6) + 's'; 
-        petal.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
-        container.appendChild(petal);
-        setTimeout(() => petal.remove(), 10000);
-    }, 300);
-}
-window.onload = createAmbientPetals;
+/* POLAROID STYLING */
+.polaroid-frame { background: white; padding: 15px 15px 35px 15px; border-radius: 5px; box-shadow: 0 15px 30px rgba(0,0,0,0.6); transition: transform 0.3s ease, filter 2s ease; margin: 0 auto 20px auto; width: 100%; max-width: 250px; cursor: pointer; }
+.polaroid-frame:active { transform: scale(0.95); }
 
-function typeWriter(elementId, text, speed, callback) {
-    let i = 0; let el = document.getElementById(elementId); el.innerHTML = "";
-    function type() {
-        if (i < text.length) { el.innerHTML += text.charAt(i); i++; setTimeout(type, speed); } 
-        else if (callback) { callback(); }
-    }
-    type();
-}
+/* The blurred/grayscale state */
+.polaroid-img { width: 100%; height: 220px; object-fit: cover; background: #222; filter: grayscale(100%) brightness(40%) blur(12px); transition: filter 3s ease-in-out; }
+.polaroid-caption { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 700; color: #222; margin-top: 15px; font-size: 18px; }
 
-function checkPassword() {
-    initAudio();
-    const input = document.getElementById('heart-password').value.toLowerCase().trim();
-    const errorMsg = document.getElementById('pwd-error');
-    if(input === 'moongfali') { showPage('fingerprint-screen'); } 
-    else { errorMsg.classList.remove('hidden'); errorMsg.style.animation = 'none'; errorMsg.offsetHeight; errorMsg.style.animation = null; }
+/* The developing state */
+.developing .polaroid-img { filter: grayscale(0%) brightness(100%) blur(0px); }
+
+/* Fully developed (used for the gallery) */
+.developed-img { filter: grayscale(0%) brightness(100%) blur(0px) !important; }
+
+/* FINAL SLIDE: SCROLLABLE GALLERY */
+.scrollable-gallery {
+    width: 100%;
+    max-height: 60vh; 
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 20px;
+    opacity: 0; transform: translateY(20px); transition: all 1s ease 1s; 
 }
 
-// --- FINGERPRINT GAME ---
-const scannerBox = document.getElementById('scanner-box');
-const scanLine = document.getElementById('scan-line');
-const fingerprintMsg = document.getElementById('fingerprint-msg');
-let scanTimer; let scanProgress = 0;
-
-function startScan(e) {
-    e.preventDefault(); scannerBox.classList.add('scanning'); fingerprintMsg.innerText = "Scanning biometrics...";
-    scanTimer = setInterval(() => {
-        scanProgress += 2; scanLine.style.height = scanProgress + '%';
-        if (scanProgress >= 100) { clearInterval(scanTimer); fingerprintMsg.innerText = "Identity Confirmed: Moongfali 🥜❤️"; fingerprintMsg.style.color = "#ff6b81"; document.getElementById('scan-btn').classList.remove('hidden'); }
-    }, 50);
-}
-function stopScan() {
-    if (scanProgress < 100) { clearInterval(scanTimer); scanProgress = 0; scanLine.style.height = '0%'; scannerBox.classList.remove('scanning'); fingerprintMsg.innerText = "Scan failed. Keep holding!"; }
-}
-scannerBox.addEventListener('mousedown', startScan); scannerBox.addEventListener('touchstart', startScan, {passive: false});
-scannerBox.addEventListener('mouseup', stopScan); scannerBox.addEventListener('touchend', stopScan); scannerBox.addEventListener('mouseleave', stopScan);
-
-function startExperience() {
-    let video = document.getElementById("bg-video");
-    if (video) { video.muted = false; video.volume = 0.8; video.play().catch(e => console.log(e)); }
-    showPage('intro-screen');
-    setTimeout(() => { typeWriter('typewriter-title', "Welcome, My Love... 🙈", 100, () => { typeWriter('typewriter-text', "Turn the volume up, brightness up, and open your heart! ❤️🔊", 50, () => { document.getElementById('intro-btn').classList.remove('hidden'); }); }); }, 500);
+@media(min-width: 600px) {
+    .scrollable-gallery { grid-template-columns: 1fr 1fr; } 
 }
 
-function showPage(pageId) {
-    document.querySelectorAll('.glass-card').forEach(page => { page.classList.remove('active'); page.classList.add('hidden'); });
-    const nextPage = document.getElementById(pageId); nextPage.classList.remove('hidden'); nextPage.classList.add('active');
-    
-    // Init games based on page
-    if(pageId === 'polaroid-screen') initGame2Polaroid();
-    if(pageId === 'scratch-screen') initScratchCard();
-    if(pageId === 'page24') initHoldReveal(); 
-}
+.scrollable-gallery .polaroid-frame { margin-bottom: 0; cursor: default; }
+.scrollable-gallery .polaroid-frame:nth-child(even) { transform: rotate(2deg); }
+.scrollable-gallery .polaroid-frame:nth-child(odd) { transform: rotate(-2deg); }
+.scrollable-gallery .polaroid-frame:hover { transform: scale(1.05) rotate(0deg); z-index: 10; position: relative; }
 
-// --- GAME 2: TRUE HOLD-TO-DEVELOP POLAROID ---
-function initGame2Polaroid() {
-    const frame = document.getElementById('game2-polaroid');
-    const msg = document.getElementById('polaroid-msg');
-    const btn = document.getElementById('polaroid-btn');
-    let devTimer; let isDeveloped = false;
+.revealed-gallery { opacity: 1; transform: translateY(0); }
 
-    function startDevelop(e) {
-        if(isDeveloped) return;
-        e.preventDefault();
-        frame.classList.add('developing');
-        msg.innerText = "Developing... hold steady!";
-        
-        devTimer = setTimeout(() => {
-            isDeveloped = true;
-            msg.innerText = "Perfect! ❤️";
-            msg.style.color = "#ff6b81";
-            btn.classList.remove('hidden');
-        }, 3000); // Takes 3 seconds to lock in
-    }
+/* Custom Sleek Scrollbar */
+.scrollable-gallery::-webkit-scrollbar { width: 6px; }
+.scrollable-gallery::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
+.scrollable-gallery::-webkit-scrollbar-thumb { background: rgba(255,107,129,0.5); border-radius: 10px; }
+.scrollable-gallery::-webkit-scrollbar-thumb:hover { background: rgba(255,107,129,1); }
 
-    function stopDevelop() {
-        if(!isDeveloped) {
-            clearTimeout(devTimer);
-            frame.classList.remove('developing');
-            msg.innerText = "Keep holding to develop...";
-        }
-    }
 
-    frame.addEventListener('mousedown', startDevelop); frame.addEventListener('touchstart', startDevelop, {passive: false});
-    frame.addEventListener('mouseup', stopDevelop); frame.addEventListener('touchend', stopDevelop); frame.addEventListener('mouseleave', stopDevelop);
-}
+/* Other Games */
+.scratch-container { position: relative; width: 280px; height: 150px; margin: 0 auto; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.5); border: 2px solid rgba(255,107,129,0.5); }
+.scratch-content { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; display: flex; justify-content: center; align-items: center; text-align: center; }
+.scratch-content h2 { font-family: 'Playfair Display', serif; color: #ff4757; font-size: 24px; margin: 0; }
+canvas#scratch-pad { position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair; }
+.fingerprint-box { width: 120px; height: 150px; margin: 0 auto 20px auto; border: 2px dashed rgba(255, 107, 129, 0.5); border-radius: 20px; position: relative; display: flex; justify-content: center; align-items: center; cursor: pointer; overflow: hidden; user-select: none; }
+.scan-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: rgba(255, 107, 129, 0.4); border-top: 3px solid #ff6b81; box-shadow: 0 -5px 15px rgba(255, 107, 129, 0.8); transition: height 0.1s linear; }
+.scanning { border-color: #ff6b81; box-shadow: 0 0 20px rgba(255,107,129,0.5); }
 
-// --- FINAL SLIDE: SCROLLABLE GALLERY REVEAL ---
-function initHoldReveal() {
-    const holdHeart = document.getElementById('hold-heart');
-    const holdRing = document.getElementById('hold-ring');
-    const holdContainer = document.getElementById('hold-container');
-    const holdText = document.getElementById('hold-text');
-    let revealTimer; let revealProgress = 0; let isRevealed = false;
+/* Standard Inputs & Buttons */
+input[type="text"] { width: 100%; padding: 15px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); background: rgba(0,0,0,0.4); color: white; font-size: 18px; font-family: 'Poppins'; text-align: center; margin-bottom: 20px; outline: none; }
+.btn { padding: 14px 38px; font-size: 18px; font-weight: 600; font-family: 'Poppins'; border-radius: 30px; border: none; cursor: pointer; transition: 0.3s; z-index: 10; margin: 0 10px; }
+.yes { background: linear-gradient(135deg, #ff4757, #ff6b81); color: white; }
+.no { background: rgba(255, 255, 255, 0.95); color: #ff4757; }
+.glow-btn:hover { box-shadow: 0 0 25px #ff6b81, 0 0 50px #ff4757; transform: translateY(-3px) scale(1.05); }
+.btn:active { transform: scale(0.95); }
+.runaway-btn.moving { position: fixed; z-index: 9999; }
 
-    function startReveal(e) {
-        if(isRevealed) return;
-        e.preventDefault();
-        holdContainer.classList.add('holding');
-        holdText.innerText = "Keep holding...";
-        
-        revealTimer = setInterval(() => {
-            revealProgress += 2;
-            let angle = (revealProgress / 100) * 360;
-            holdRing.style.borderTopColor = angle > 0 ? '#ff6b81' : 'transparent';
-            holdRing.style.borderRightColor = angle > 90 ? '#ff6b81' : 'transparent';
-            holdRing.style.borderBottomColor = angle > 180 ? '#ff6b81' : 'transparent';
-            holdRing.style.borderLeftColor = angle > 270 ? '#ff6b81' : 'transparent';
-            holdRing.style.transform = `rotate(${angle - 45}deg)`;
-
-            if (revealProgress >= 100) {
-                clearInterval(revealTimer);
-                isRevealed = true;
-                triggerFinalMagic();
-            }
-        }, 30);
-    }
-
-    function stopReveal() {
-        if (!isRevealed) {
-            clearInterval(revealTimer); revealProgress = 0;
-            holdContainer.classList.remove('holding'); holdText.innerText = "Hold to reveal...";
-            holdRing.style.borderColor = "rgba(255,107,129,0.2)"; holdRing.style.borderTopColor = "transparent"; holdRing.style.borderRightColor = "transparent"; holdRing.style.transform = "rotate(-45deg)";
-        }
-    }
-
-    holdHeart.addEventListener('mousedown', startReveal); holdHeart.addEventListener('touchstart', startReveal, {passive: false});
-    holdHeart.addEventListener('mouseup', stopReveal); holdHeart.addEventListener('touchend', stopReveal); holdHeart.addEventListener('mouseleave', stopReveal);
-}
-
-function triggerFinalMagic() {
-    document.getElementById('reveal-prompt').classList.add('hidden');
-    document.getElementById('gallery-container').classList.remove('hidden');
-    
-    setTimeout(() => {
-        // Triggers the gallery entrance animation
-        document.getElementById('final-gallery').classList.add('revealed-gallery');
-        
-        // Adds the developing class to ALL polaroids in the gallery simultaneously!
-        document.querySelectorAll('.final-pic').forEach(pic => {
-            pic.classList.add('developing');
-        });
-        
-        let crackers = document.getElementById("cracker-sound");
-        if(crackers) { crackers.volume = 1.0; crackers.play().catch(e => console.log(e)); }
-        startCrazyConfetti();
-        
-        setTimeout(() => { 
-            typeWriter('final-typewriter', "I knew it! Besties and soulmates forever! 🎉💖", 80); 
-        }, 500);
-        
-    }, 50);
-}
-
-// --- OTHER GAMES ---
-function initScratchCard() {
-    const canvas = document.getElementById('scratch-pad'); const ctx = canvas.getContext('2d'); let isDrawing = false;
-    ctx.fillStyle = '#b0bec5'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.font = "20px Poppins"; ctx.fillStyle = "#ffffff"; ctx.fillText("Scratch Here 🪙", 70, 80);
-    function scratch(e) {
-        if (!isDrawing) return; e.preventDefault();
-        const rect = canvas.getBoundingClientRect(); const x = (e.clientX || e.touches[0].clientX) - rect.left; const y = (e.clientY || e.touches[0].clientY) - rect.top;
-        ctx.globalCompositeOperation = 'destination-out'; ctx.beginPath(); ctx.arc(x, y, 20, 0, Math.PI * 2); ctx.fill();
-        document.getElementById('scratch-btn').classList.remove('hidden');
-    }
-    canvas.addEventListener('mousedown', () => isDrawing = true); canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); }, {passive: false});
-    canvas.addEventListener('mousemove', scratch); canvas.addEventListener('touchmove', scratch, {passive: false}); document.addEventListener('mouseup', () => isDrawing = false); document.addEventListener('touchend', () => isDrawing = false);
-}
-
-let balloonsPopped = 0;
-function popBalloon(element) { element.classList.add('popped'); balloonsPopped++; let msg = document.getElementById('balloon-msg'); if(balloonsPopped === 1) msg.innerText = "Good! 2 nakhre aur bache hain..."; if(balloonsPopped === 2) msg.innerText = "Almost there! Last wala phodo!"; if(balloonsPopped === 3) { msg.innerText = "Yay! Nakhre khatam! 🥰"; document.getElementById('balloon-btn').classList.remove('hidden'); } }
-
-function startAnalyzer() { document.getElementById('analyze-btn').classList.add('hidden'); const fill = document.getElementById('compat-fill'); const text = document.getElementById('compat-text'); let progress = 0; let interval = setInterval(() => { progress += Math.floor(Math.random() * 5) + 1; if (progress > 100) { clearInterval(interval); fill.style.width = '100%'; setTimeout(() => { text.innerText = "ERROR: Match exceeded... 1000% 💖"; text.style.transform = "scale(1.2)"; document.getElementById('compat-next-btn').classList.remove('hidden'); }, 500); } else { fill.style.width = progress + '%'; text.innerText = progress + '%'; } }, 80); }
-
-const destinyOptions = ["Movie Date 🎬", "Shopping Spree 🛍️", "Long Drive 🚗", "Coffee Date ☕", "Pizza Party 🍕"]; let spinInterval;
-function startSpinner() { document.getElementById('spin-btn').classList.add('hidden'); const textEl = document.getElementById('spinner-text'); let count = 0; spinInterval = setInterval(() => { textEl.innerText = destinyOptions[count % destinyOptions.length]; count++; }, 100); setTimeout(() => { clearInterval(spinInterval); textEl.innerText = "Forever with Kartikey ❤️"; textEl.style.color = "#ff6b81"; textEl.style.fontSize = "26px"; document.getElementById('spinner-next-btn').classList.remove('hidden'); }, 3000); }
-
-function checkSlider() { let val = document.getElementById('love-slider').value; let text = document.getElementById('slider-text'); let btn = document.getElementById('slider-btn'); text.innerText = val + '%'; if(val == 100) { text.innerText = "100%?! I love you too! 🥰"; btn.classList.remove('hidden'); } else { btn.classList.add('hidden'); } }
-
-function flipWrong(element) { element.classList.add('flipped'); document.getElementById('card-msg').innerText = "Oops! Not here! 😜"; }
-function flipRight(element) { element.classList.add('flipped'); document.getElementById('card-msg').innerText = "You found my heart! 💘"; document.getElementById('card-btn').classList.remove('hidden'); document.querySelectorAll('.flip-card').forEach(card => card.style.pointerEvents = "none"); }
-
-const runawayButtons = document.querySelectorAll('.runaway-btn'); runawayButtons.forEach(btn => { btn.addEventListener('mouseover', moveButton); btn.addEventListener('touchstart', moveButton, {passive: false}); });
-function moveButton(e) { e.preventDefault(); const btn = e.target; btn.classList.add('moving'); const maxX = window.innerWidth - (btn.offsetWidth || 100) - 20; const maxY = window.innerHeight - (btn.offsetHeight || 50) - 20; btn.style.left = Math.max(10, Math.floor(Math.random() * maxX)) + 'px'; btn.style.top = Math.max(10, Math.floor(Math.random() * maxY)) + 'px'; }
-
-document.addEventListener("mousemove", (e) => { document.querySelectorAll(".tilt-card").forEach(card => { let x = (window.innerWidth / 2 - e.pageX) / 40; let y = (window.innerHeight / 2 - e.pageY) / 40; card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`; }); });
-
-function startCrazyConfetti() { var duration = 15 * 1000; var animationEnd = Date.now() + duration; var defaults = { startVelocity: 35, spread: 360, ticks: 80, zIndex: 9999, colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffffff', '#ffd700'] }; function randomInRange(min, max) { return Math.random() * (max - min) + min; } var interval = setInterval(function() { var timeLeft = animationEnd - Date.now(); if (timeLeft <= 0) return clearInterval(interval); var particleCount = 60 * (timeLeft / duration); confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } })); confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } })); }, 250); }
+/* Utilities */
+.floating { width: 220px; height: 220px; object-fit: cover; border-radius: 20px; margin-bottom: 25px; animation: float 4s infinite; border: 2px solid rgba(255,255,255,0.2); }
+.emoji-hero { font-size: 110px; margin-bottom: 20px; animation: float 4s infinite; filter: drop-shadow(0 15px 20px rgba(0,0,0,0.6)); }
+.lock-icon { font-size: 80px; margin-bottom: 15px; animation: pulseLock 2s infinite alternate; }
+.balloons-container { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+.balloon { font-size: 55px; cursor: pointer; transition: 0.3s; animation: float 3s infinite alternate; }
+.popped { transform: scale(0) !important; opacity: 0; pointer-events: none; }
+.spinner-box { background: rgba(0,0,0,0.5); border: 2px solid #ff6b81; border-radius: 15px; padding: 20px; margin-bottom: 25px; }
+.compat-box { width: 100%; height: 20px; background: rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
+.compat-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #ff4757, #ff1493); transition: width 0.1s linear; }
+input[type="range"] { width: 100%; height: 8px; background: rgba(255,255,255,0.2); border-radius: 10px; outline: none; -webkit-appearance: none; accent-color: #ff4757; }
+.flip-cards-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 20px; }
+.flip-card { width: 80px; height: 110px; perspective: 1000px; cursor: pointer; }
+.flip-card-inner { width: 100%; height: 100%; transition: transform 0.6s; transform-style: preserve-3d; position: relative; }
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back { width: 100%; height: 100%; position: absolute; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; font-size: 35px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.3); }
+.flip-card-back { background: rgba(255,107,129,0.2); transform: rotateY(180deg); }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+@keyframes pulseLock { 0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,107,129,0.3)); } 100% { transform: scale(1.05); filter: drop-shadow(0 0 30px rgba(255,107,129,0.9)); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25%, 75% { transform: translateX(-10px); } 50% { transform: translateX(10px); } }
