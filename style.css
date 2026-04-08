@@ -13,6 +13,7 @@ body {
     overflow: hidden;
     text-align: center;
     color: white; 
+    perspective: 1000px; /* For the 3D tilt effect */
 }
 
 /* Background Video Setup */
@@ -33,7 +34,6 @@ body {
     opacity: 0.85; 
 }
 
-/* Darker cinematic overlay */
 .video-overlay {
     position: fixed;
     top: 0;
@@ -46,17 +46,19 @@ body {
 
 /* Premium Dark Frosted Glass Effect */
 .glass-card {
-    background: rgba(20, 20, 20, 0.45); 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(20, 20, 20, 0.55); 
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
     padding: 45px 30px;
     width: 90%;
     max-width: 480px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(255,255,255,0.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(255,255,255,0.05);
     position: absolute;
     z-index: 1;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out; /* For 3D JS effect */
 }
 
 /* Elegant smooth slide-up animation */
@@ -70,17 +72,11 @@ body {
 }
 
 @keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(40px) scale(0.95);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Floating Images */
+/* Floating Images & Emojis */
 .floating {
     width: 200px;
     height: 200px;
@@ -92,18 +88,36 @@ body {
     border: 2px solid rgba(255,255,255,0.1);
 }
 
+.emoji-hero {
+    font-size: 100px;
+    margin-bottom: 20px;
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.5));
+}
+
+.lock-icon {
+    font-size: 70px;
+    margin-bottom: 15px;
+    animation: pulseLock 2s infinite alternate;
+}
+
 @keyframes float {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-12px); }
     100% { transform: translateY(0px); }
 }
 
-/* Cinematic Typography */
+@keyframes pulseLock {
+    0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255,107,129,0.2)); }
+    100% { transform: scale(1.1); filter: drop-shadow(0 0 25px rgba(255,107,129,0.8)); }
+}
+
+/* Typography */
 h1 {
     font-family: 'Playfair Display', serif; 
     font-style: italic;
     font-size: 28px;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 12px;
     line-height: 1.3;
     letter-spacing: 0.5px;
@@ -116,7 +130,82 @@ p {
     margin-bottom: 30px;
     color: #e0e0e0;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-    letter-spacing: 0.5px;
+}
+
+/* Premium Inputs (Password & Slider) */
+input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(0,0,0,0.3);
+    color: white;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    margin-bottom: 20px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus {
+    border-color: #ff6b81;
+    box-shadow: 0 0 15px rgba(255, 107, 129, 0.5);
+    background: rgba(0,0,0,0.5);
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+    accent-color: #ff4757;
+    cursor: pointer;
+}
+
+.game-text {
+    font-size: 22px;
+    font-weight: 600;
+    color: #ff6b81;
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+/* Error Text Animation */
+.error-text {
+    color: #ff4757 !important;
+    font-weight: 600;
+    margin-top: 15px;
+    margin-bottom: 0;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+}
+
+/* Box Game Styles */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.game-box {
+    font-size: 45px;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+
+.game-box:hover {
+    transform: translateY(-5px);
+    background: rgba(255,255,255,0.2);
 }
 
 /* Button Styling */
@@ -139,7 +228,7 @@ p {
     z-index: 10;
 }
 
-.yes {
+.yes, .unlock-btn {
     background: linear-gradient(135deg, #ff4757, #ff6b81);
     color: white;
     box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
@@ -152,7 +241,7 @@ p {
 }
 
 .btn:hover {
-    transform: translateY(-3px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
 }
 
@@ -160,7 +249,7 @@ p {
     transform: scale(0.95);
 }
 
-/* Keeps runaway button on top */
+/* Runaway Button Logic */
 .runaway-btn.moving {
     position: fixed;
     z-index: 9999;
