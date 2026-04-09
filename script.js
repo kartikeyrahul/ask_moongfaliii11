@@ -1,33 +1,33 @@
-// --- CGI STARDUST (FIREFLIES) BACKGROUND ---
+// --- NEW CGI STARDUST BACKGROUND ---
 const canvas = document.getElementById('stardust');
 const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particlesArray = [];
+const colors = ['rgba(255, 177, 193, ', 'rgba(255, 215, 0, ']; // Pink and Gold
+
 class Particle {
     constructor() {
         this.x = Math.random() * canvas.width;
         this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1; // Size of glowing orb
-        this.speedY = Math.random() * -1 - 0.5; // Drift upwards
-        this.speedX = Math.random() * 2 - 1; // Drift left/right
-        this.opacity = Math.random() * 0.5 + 0.1;
+        this.size = Math.random() * 2 + 0.5; 
+        this.speedY = Math.random() * -0.5 - 0.2; 
+        this.speedX = Math.random() * 1 - 0.5; 
+        this.colorBase = colors[Math.floor(Math.random() * colors.length)];
+        this.opacity = Math.random() * 0.5 + 0.2;
     }
     update() {
-        this.y += this.speedY;
-        this.x += this.speedX;
-        // Wrap around edges
+        this.y += this.speedY; this.x += this.speedX;
         if (this.y < 0) this.y = canvas.height;
         if (this.x < 0) this.x = canvas.width;
         if (this.x > canvas.width) this.x = 0;
     }
     draw() {
         ctx.beginPath();
-        // Create glowing effect
         let gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * 2);
-        gradient.addColorStop(0, `rgba(255, 180, 190, ${this.opacity})`);
-        gradient.addColorStop(1, 'rgba(255, 107, 129, 0)');
+        gradient.addColorStop(0, this.colorBase + this.opacity + ')');
+        gradient.addColorStop(1, this.colorBase + '0)');
         ctx.fillStyle = gradient;
         ctx.arc(this.x, this.y, this.size * 2, 0, Math.PI * 2);
         ctx.fill();
@@ -35,22 +35,17 @@ class Particle {
 }
 function initStardust() {
     particlesArray = [];
-    let numberOfParticles = (canvas.width * canvas.height) / 9000; // Dynamic amount based on screen
-    for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-    }
+    let numberOfParticles = (canvas.width * canvas.height) / 7000; 
+    for (let i = 0; i < numberOfParticles; i++) { particlesArray.push(new Particle()); }
 }
 function animateStardust() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-    }
+    for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); particlesArray[i].draw(); }
     requestAnimationFrame(animateStardust);
 }
 window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initStardust(); });
-initStardust();
-animateStardust();
+initStardust(); animateStardust();
+
 
 // --- PETALS ---
 function createAmbientPetals() {
@@ -63,7 +58,7 @@ function createAmbientPetals() {
         petal.style.transform = `scale(${Math.random() * 0.5 + 0.5})`;
         container.appendChild(petal);
         setTimeout(() => petal.remove(), 10000);
-    }, 300);
+    }, 400); // Slightly reduced petal count so it doesn't clutter the new stardust
 }
 window.onload = createAmbientPetals;
 
@@ -111,7 +106,7 @@ function startExperience() {
 }
 
 function showPage(pageId) {
-    document.querySelectorAll('.glass-card').forEach(page => { page.classList.remove('active'); page.classList.add('hidden'); });
+    document.querySelectorAll('.aura-card').forEach(page => { page.classList.remove('active'); page.classList.add('hidden'); });
     const nextPage = document.getElementById(pageId); nextPage.classList.remove('hidden'); nextPage.classList.add('active');
     
     if(pageId === 'scratch-screen') initScratchCard();
@@ -159,11 +154,11 @@ function initFinalePolaroid() {
 function initScratchCard() {
     const canvas = document.getElementById('scratch-pad'); const ctx = canvas.getContext('2d'); let isDrawing = false;
     
-    // Add a premium metallic scratch cover
+    // Metallic foil look
     let gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, '#e0e0e0'); gradient.addColorStop(0.5, '#ffffff'); gradient.addColorStop(1, '#c0c0c0');
+    gradient.addColorStop(0, '#c0c0c0'); gradient.addColorStop(0.5, '#ffffff'); gradient.addColorStop(1, '#a0a0a0');
     ctx.fillStyle = gradient; ctx.fillRect(0, 0, canvas.width, canvas.height); 
-    ctx.font = "bold 22px Poppins"; ctx.fillStyle = "#888"; ctx.textAlign = "center"; ctx.fillText("Scratch Here 🪙", canvas.width/2, canvas.height/2 + 7);
+    ctx.font = "bold 20px Poppins"; ctx.fillStyle = "#555"; ctx.textAlign = "center"; ctx.fillText("Scratch Here 🪙", canvas.width/2, canvas.height/2 + 7);
     
     function scratch(e) {
         if (!isDrawing) return; e.preventDefault();
@@ -190,7 +185,7 @@ function startAnalyzer() {
         progress += Math.floor(Math.random() * 5) + 1; 
         if (progress > 100) { 
             clearInterval(interval); fill.style.width = '100%'; 
-            setTimeout(() => { text.innerText = "ERROR: Match exceeded... 1000% 💖"; text.style.transform = "scale(1.2)"; document.getElementById('compat-next-btn').classList.remove('hidden'); }, 500); 
+            setTimeout(() => { text.innerText = "ERROR: Match exceeded... 1000% 💖"; text.style.transform = "scale(1.1)"; document.getElementById('compat-next-btn').classList.remove('hidden'); }, 500); 
         } else { fill.style.width = progress + '%'; text.innerText = progress + '%'; } 
     }, 80); 
 }
@@ -199,7 +194,7 @@ const destinyOptions = ["Movie Date 🎬", "Shopping Spree 🛍️", "Long Drive
 function startSpinner() { 
     document.getElementById('spin-btn').classList.add('hidden'); const textEl = document.getElementById('spinner-text'); let count = 0; 
     spinInterval = setInterval(() => { textEl.innerText = destinyOptions[count % destinyOptions.length]; count++; }, 100); 
-    setTimeout(() => { clearInterval(spinInterval); textEl.innerText = "Forever with Kartikey ❤️"; textEl.style.color = "#ffb1c1"; textEl.style.fontSize = "26px"; document.getElementById('spinner-next-btn').classList.remove('hidden'); }, 3000); 
+    setTimeout(() => { clearInterval(spinInterval); textEl.innerText = "Forever with Kartikey ❤️"; textEl.style.color = "#ffb1c1"; textEl.style.fontSize = "24px"; document.getElementById('spinner-next-btn').classList.remove('hidden'); }, 3000); 
 }
 
 function checkSlider() { 
@@ -217,8 +212,8 @@ function moveButton(e) {
     btn.style.left = Math.max(10, Math.floor(Math.random() * maxX)) + 'px'; btn.style.top = Math.max(10, Math.floor(Math.random() * maxY)) + 'px'; 
 }
 
+// Subtle 3D Mouse Parallax
 document.addEventListener("mousemove", (e) => { 
-    // Adds a 3D tilt effect based on mouse position
     document.querySelectorAll(".tilt-card").forEach(card => { 
         let x = (window.innerWidth / 2 - e.pageX) / 40; let y = (window.innerHeight / 2 - e.pageY) / 40; 
         card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`; 
@@ -226,7 +221,7 @@ document.addEventListener("mousemove", (e) => {
 });
 
 function startCrazyConfetti() { 
-    var duration = 15 * 1000; var animationEnd = Date.now() + duration; var defaults = { startVelocity: 45, spread: 360, ticks: 80, zIndex: 9999, colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffffff', '#ffd700'] }; 
+    var duration = 15 * 1000; var animationEnd = Date.now() + duration; var defaults = { startVelocity: 45, spread: 360, ticks: 80, zIndex: 9999, colors: ['#ffb1c1', '#ff0055', '#ffd700', '#ffffff'] }; 
     function randomInRange(min, max) { return Math.random() * (max - min) + min; } 
     var interval = setInterval(function() { 
         var timeLeft = animationEnd - Date.now(); if (timeLeft <= 0) return clearInterval(interval); 
