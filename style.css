@@ -5,68 +5,49 @@ body { font-family: 'Poppins', sans-serif; height: 100vh; background-color: #000
 .video-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3; }
 #bg-video { width: 100%; height: 100%; object-fit: cover; opacity: 0.65; }
 
-/* Dark gradient ensures the video is visible at the top, but dark at the bottom so text is easy to read */
 .video-overlay { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
     background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0.95) 90%, rgba(0,0,0,1) 100%); 
     z-index: -2; 
 }
 
-/* Magical Particles (Fireflies) */
 #floating-petals-container, #fireflies-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
 .firefly { position: absolute; width: 4px; height: 4px; background: rgba(255, 215, 0, 0.8); border-radius: 50%; box-shadow: 0 0 10px 2px rgba(255, 215, 0, 0.6); animation: floatMagic linear infinite; }
 @keyframes floatMagic { 0% { transform: translateY(110vh) translateX(0) scale(1); opacity: 0; } 10%, 90% { opacity: 1; } 100% { transform: translateY(-10vh) translateX(50px) scale(1.5); opacity: 0; } }
 
-/* MOVIE SCENE ARCHITECTURE */
-.cinematic-scene { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
+.glass-card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; }
 .active { display: flex; animation: sceneFadeIn 0.5s ease-out forwards; }
 .hidden { display: none !important; }
 
-@keyframes sceneFadeIn { 
-    0% { opacity: 0; transform: scale(1.02); } 
-    100% { opacity: 1; transform: scale(1); } 
-}
+@keyframes sceneFadeIn { 0% { opacity: 0; transform: scale(1.02); } 100% { opacity: 1; transform: scale(1); } }
 
-/* ✨ THE FIX: Art Gallery Framing for Square/Landscape Images ✨ */
+/* Art Gallery Framing for Images & Memes */
 .scene-img-wrapper {
-    position: absolute; 
-    top: 5vh; /* Pushes it slightly down from the very top */
-    left: 0; 
-    width: 100%; 
-    height: 55vh; /* Gives it plenty of room above the subtitles */
-    z-index: 1;
-    pointer-events: none; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: absolute; top: 5vh; left: 0; width: 100%; height: 55vh; z-index: 1;
+    pointer-events: none; display: flex; justify-content: center; align-items: center;
 }
 
 .scene-img { 
-    max-width: 90%; /* Ensures it doesn't touch the sides of the phone */
-    max-height: 100%; /* Ensures it doesn't stretch vertically */
-    object-fit: contain; /* PERFECTLY frames your original square/landscape images */
-    border-radius: 15px; /* Soft, elegant rounded corners */
-    
-    /* Adds a beautiful glowing frame so it looks like magic floating art */
+    max-width: 90%; max-height: 100%; object-fit: contain; border-radius: 15px; 
     border: 2px solid rgba(255, 107, 129, 0.5);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 107, 129, 0.3);
-    
     will-change: transform; transform: translateZ(0); 
     animation: gentleFloat 6s infinite alternate ease-in-out; 
 }
 
-/* Replaced the panning with a gentle float since the images are fully visible now */
-@keyframes gentleFloat { 
-    0% { transform: translateY(0px); } 
-    100% { transform: translateY(-15px); } 
+/* Ensure meme videos maintain their 16:9 ratio and look like pictures inside the frame */
+.meme-video {
+    object-fit: cover !important;
+    background: #000;
 }
+
+@keyframes gentleFloat { 0% { transform: translateY(0px); } 100% { transform: translateY(-15px); } }
 
 /* Subtitles Overlay */
 .subtitles { position: absolute; bottom: 5vh; left: 0; width: 100%; z-index: 10; padding: 0 20px; text-align: center; }
 .subtitles h1 { font-family: 'Playfair Display', serif; font-style: italic; font-size: 26px; font-weight: 700; margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.8); }
 .subtitles p { font-weight: 300; font-size: 16px; margin-bottom: 25px; color: #f0f0f0; text-shadow: 0 2px 10px rgba(0,0,0,1); }
 
-/* Premium Holographic Buttons */
 .button-container { display: flex; justify-content: center; gap: 15px; min-height: 60px; }
 .cinematic-btn {
     padding: 12px 35px; font-size: 16px; font-weight: 600; font-family: 'Poppins', sans-serif;
@@ -79,7 +60,6 @@ body { font-family: 'Poppins', sans-serif; height: 100vh; background-color: #000
 .cinematic-btn:active { transform: scale(0.95); }
 .runaway-btn.moving { position: fixed; z-index: 9999; }
 
-/* Typing Cursor */
 .typing-cursor::after { content: '|'; animation: blink 0.8s infinite; color: #ff6b81; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
@@ -118,6 +98,13 @@ input[type="range"] { width: 90%; max-width: 350px; height: 8px; background: rgb
 .flip-card-back { background: rgba(255,107,129,0.2); transform: rotateY(180deg); }
 
 /* POLAROID FINAL GALLERY */
+.final-card {
+    max-width: 700px; max-height: 90vh; display: flex; flex-direction: column; align-items: center; padding: 30px 20px;
+    background: rgba(20, 15, 20, 0.7); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+    border-radius: 30px; box-shadow: 0 25px 50px rgba(0,0,0,0.7); border: 1px solid rgba(255,255,255,0.15);
+    left: 50%; transform: translateX(-50%);
+}
+
 .polaroid-frame { background: white; padding: 10px 10px 30px 10px; border-radius: 4px; box-shadow: 0 25px 50px rgba(0,0,0,0.8); transition: transform 0.3s ease; margin: 0 auto 20px auto; width: 100%; max-width: 250px; cursor: pointer; }
 .polaroid-frame:active { transform: scale(0.95); }
 .polaroid-img { width: 100%; height: 250px; object-fit: cover; background: #222; filter: grayscale(100%) brightness(30%) blur(10px); transition: filter 3.5s ease-in-out; border-radius: 2px; }
