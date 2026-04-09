@@ -1,4 +1,12 @@
-// --- AMBIENT MAGIC (Fireflies & Petals) ---
+// --- PRELOAD HEAVY IMAGES ---
+// This silently downloads all images in the background so there's ZERO lag when she plays.
+const imageUrls = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', 'us.jpg', 'shopping.jpg', 'nakhre.jpg', 'destiny.jpg', 'forever.jpg'];
+window.onload = () => {
+    createMagicAmbience();
+    imageUrls.forEach(url => { const img = new Image(); img.src = url; });
+};
+
+// --- AMBIENT MAGIC (Fireflies) ---
 function createMagicAmbience() {
     const fireflyContainer = document.getElementById('fireflies-container');
     setInterval(() => {
@@ -8,9 +16,8 @@ function createMagicAmbience() {
         firefly.style.animationDuration = (Math.random() * 5 + 5) + 's'; 
         fireflyContainer.appendChild(firefly);
         setTimeout(() => firefly.remove(), 10000);
-    }, 400); // More frequent for cinematic look
+    }, 400); 
 }
-window.onload = createMagicAmbience;
 
 // --- UTILS ---
 function typeWriter(elementId, text, speed, callback) {
@@ -59,7 +66,7 @@ function startExperience() {
     let video = document.getElementById("bg-video");
     if (video) { video.muted = false; video.volume = 0.8; video.play().catch(e => console.log(e)); }
     showPage('intro-screen');
-    setTimeout(() => { typeWriter('typewriter-title', "Welcome, My Love... 🎬", 90, () => { typeWriter('typewriter-text', "Turn the volume up and open your heart. This is our story...", 50, () => { document.getElementById('intro-btn').classList.remove('hidden'); }); }); }, 800);
+    setTimeout(() => { typeWriter('typewriter-title', "Welcome, My Love... 🎬", 90, () => { typeWriter('typewriter-text', "Turn the volume up and open your heart. This is our story...", 50, () => { document.getElementById('intro-btn').classList.remove('hidden'); }); }); }, 500);
 }
 
 let balloonsPopped = 0;
@@ -162,12 +169,12 @@ function initFinalePolaroid() {
 }
 
 function startCrazyConfetti() { 
-    var duration = 15 * 1000; var animationEnd = Date.now() + duration; var defaults = { startVelocity: 35, spread: 360, ticks: 80, zIndex: 9999, colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffffff', '#ffd700'] }; 
+    var duration = 15 * 1000; var animationEnd = Date.now() + duration; var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 9999, colors: ['#ff0000', '#ff66b2', '#ff1493', '#ffffff', '#ffd700'] }; 
     function randomInRange(min, max) { return Math.random() * (max - min) + min; } 
     var interval = setInterval(function() { 
         var timeLeft = animationEnd - Date.now(); 
         if (timeLeft <= 0) return clearInterval(interval); 
-        var particleCount = 60 * (timeLeft / duration); 
+        var particleCount = 40 * (timeLeft / duration); 
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } })); 
         confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } })); 
     }, 250); 
