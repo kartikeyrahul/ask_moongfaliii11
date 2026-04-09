@@ -1,5 +1,4 @@
 // --- PRELOAD HEAVY IMAGES ---
-// This silently downloads all images in the background so there's ZERO lag when she plays.
 const imageUrls = ['1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png', '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', 'us.jpg', 'shopping.jpg', 'nakhre.jpg', 'destiny.jpg', 'forever.jpg'];
 window.onload = () => {
     createMagicAmbience();
@@ -30,8 +29,13 @@ function typeWriter(elementId, text, speed, callback) {
 }
 
 function showPage(pageId) {
-    document.querySelectorAll('.cinematic-scene').forEach(page => { page.classList.remove('active'); page.classList.add('hidden'); });
-    const nextPage = document.getElementById(pageId); nextPage.classList.remove('hidden'); nextPage.classList.add('active');
+    document.querySelectorAll('.glass-card, .cinematic-scene').forEach(page => { 
+        page.classList.remove('active'); 
+        page.classList.add('hidden'); 
+    });
+    const nextPage = document.getElementById(pageId); 
+    nextPage.classList.remove('hidden'); 
+    nextPage.classList.add('active');
     
     if(pageId === 'scratch-screen') initScratchCard();
     if(pageId === 'page24') initFinalePolaroid(); 
