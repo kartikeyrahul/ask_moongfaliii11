@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Only For My Moongfali 🥜💖</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,600;1,700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,700;1,900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
@@ -16,6 +16,7 @@
             <source src="background.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
+        <div class="animated-gradient-bg"></div>
     </div>
     
     <!-- CGI Level Ambient Effects -->
@@ -24,206 +25,210 @@
     <audio id="cracker-sound"><source src="crackers.mp3" type="audio/mpeg"></audio>
 
     <!-- SLIDE 0: PASSWORD -->
-    <div id="password-screen" class="glass-card active tilt-card">
-        <div class="lock-icon glow-pulse">🔒</div>
-        <h1 class="shimmer-text">Unlock Kartikey's Heart</h1>
-        <p>Hint: Tumhara sabse pyara nickname kya hai? 🥜</p>
-        <input type="text" id="heart-password" placeholder="Enter password..." autocomplete="off">
-        <button class="btn yes liquid-btn" onclick="checkPassword()">Unlock 💖</button>
+    <div id="password-screen" class="aura-card active tilt-card">
+        <div class="card-glow"></div>
+        <div class="lock-icon pulse-magic">🔒</div>
+        <h1 class="metallic-text">Unlock My Heart</h1>
+        <p class="subtitle">Hint: Tumhara sabse pyara nickname kya hai? 🥜</p>
+        <input type="text" id="heart-password" placeholder="Enter password..." autocomplete="off" class="premium-input">
+        <button class="btn premium-btn" onclick="checkPassword()"><span>Unlock 💖</span></button>
         <p id="pwd-error" class="hidden error-text">Galat password! Try again Pooja ji 😉</p>
     </div>
 
     <!-- GAME 1: FINGERPRINT -->
-    <div id="fingerprint-screen" class="glass-card hidden tilt-card">
-        <div class="emoji-hero" style="font-size: 80px;">👆</div>
-        <h1 class="shimmer-text">Biometric Verification</h1>
-        <p>Hold your thumb on the scanner to confirm your identity.</p>
+    <div id="fingerprint-screen" class="aura-card hidden tilt-card">
+        <div class="card-glow"></div>
+        <div class="emoji-hero">👆</div>
+        <h1 class="metallic-text">Biometric Scan</h1>
+        <p class="subtitle">Verify your identity, Moongfali.</p>
         <div class="fingerprint-box" id="scanner-box">
             <div class="scan-line" id="scan-line"></div>
-            <p>HOLD HERE</p>
+            <p class="scan-text">HOLD THUMB HERE</p>
         </div>
-        <p id="fingerprint-msg" class="game-text">Waiting for scan...</p>
+        <p id="fingerprint-msg" class="game-text">Awaiting scan...</p>
         <div class="button-container">
-            <button id="scan-btn" class="btn yes hidden liquid-btn" onclick="startExperience()">Access Granted ✨</button>
+            <button id="scan-btn" class="btn premium-btn hidden" onclick="startExperience()"><span>Access Granted ✨</span></button>
         </div>
     </div>
 
     <!-- SLIDE 1: INTRO -->
-    <div id="intro-screen" class="glass-card hidden">
-        <h1 id="typewriter-title" class="typing-cursor shimmer-text"></h1>
-        <p id="typewriter-text" style="min-height: 50px;"></p>
-        <button id="intro-btn" class="btn yes liquid-btn hidden" onclick="showPage('page2')">Start the Journey ✨</button>
+    <div id="intro-screen" class="aura-card hidden">
+        <div class="card-glow"></div>
+        <h1 id="typewriter-title" class="typing-cursor metallic-text"></h1>
+        <p id="typewriter-text" class="subtitle" style="min-height: 50px;"></p>
+        <button id="intro-btn" class="btn premium-btn hidden" onclick="showPage('page2')"><span>Start the Journey ✨</span></button>
     </div>
     
     <!-- THE STORY JOURNEY -->
-    <div id="page2" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="1.png" alt="Kartikey" class="floating custom-img" onerror="this.src='giphy.gif'"></div>
-        <h1 class="shimmer-text">Hey Moongfali, will you officially be mine forever? 😉</h1>
+    <div id="page2" class="aura-card hidden">
+        <div class="photo-frame"><img src="1.png" alt="Kartikey" onerror="this.src='giphy.gif'"></div>
+        <h1 class="metallic-text">Hey Moongfali, will you officially be mine forever? 😉</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page3')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page3')">No</button>
         </div>
     </div>
 
-    <div id="page3" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="2.png" alt="Kartikey" class="floating custom-img" onerror="this.src='giphy (1).gif'"></div>
-        <h1 class="shimmer-text">Ouch! Itni jaldi No? 🥺</h1>
-        <p>Aise dil tod dogi apne Kartikey ka?</p>
+    <div id="page3" class="aura-card hidden">
+        <div class="photo-frame"><img src="2.png" alt="Kartikey" onerror="this.src='giphy (1).gif'"></div>
+        <h1 class="metallic-text">Ouch! Itni jaldi No? 🥺</h1>
+        <p class="subtitle">Aise dil tod dogi apne Kartikey ka?</p>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page4')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page4')">No</button>
         </div>
     </div>
 
-    <div id="page4" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="3.png" alt="Kartikey" class="floating custom-img" onerror="this.src='giphy (2).gif'"></div>
-        <h1 class="shimmer-text">Are you seriously ignoring this cute face? 🤨</h1>
+    <div id="page4" class="aura-card hidden">
+        <div class="photo-frame"><img src="3.png" alt="Kartikey" onerror="this.src='giphy (2).gif'"></div>
+        <h1 class="metallic-text">Are you seriously ignoring this cute face? 🤨</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page5')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page5')">No</button>
         </div>
     </div>
 
-    <div id="page5" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="4.png" alt="Shopping" class="floating custom-img" onerror="this.src='giphy (3).gif'"></div>
-        <h1 class="shimmer-text">Shopping ke saare bags main uthaunga!</h1>
-        <p>Aur bina complain kiye tumhare pictures bhi click karunga 📸</p>
+    <div id="page5" class="aura-card hidden">
+        <div class="photo-frame"><img src="4.png" alt="Shopping" onerror="this.src='giphy (3).gif'"></div>
+        <h1 class="metallic-text">Shopping ke bags main uthaunga!</h1>
+        <p class="subtitle">Aur bina complain kiye pictures click karunga 📸</p>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page6')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page6')">No</button>
         </div>
     </div>
 
-    <div id="page6" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="5.png" alt="Hoodie" class="floating custom-img" onerror="this.src='giphy (3).gif'"></div>
-        <h1 class="shimmer-text">Main apni favourite hoodie bhi de dunga tumhe! 🧥</h1>
+    <div id="page6" class="aura-card hidden">
+        <div class="photo-frame"><img src="5.png" alt="Hoodie" onerror="this.src='giphy (3).gif'"></div>
+        <h1 class="metallic-text">Meri favourite hoodie bhi rakh lena! 🧥</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page7')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page7')">No</button>
         </div>
     </div>
 
     <!-- GAME 2: BALLOON POP -->
-    <div id="page7" class="glass-card hidden">
-        <h1 class="shimmer-text">Pop Your Tantrums! 🎈</h1>
-        <p>Pop these 3 balloons (tumhare nakhre) to proceed!</p>
+    <div id="page7" class="aura-card hidden">
+        <h1 class="metallic-text">Pop Your Tantrums! 🎈</h1>
+        <p class="subtitle">Pop these 3 balloons (tumhare nakhre) to proceed!</p>
         <div class="balloons-container">
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
-            <div class="balloon" onclick="popBalloon(this)">🎈</div>
+            <div class="balloon-wrapper" onclick="popBalloon(this)"><div class="balloon-string"></div>🎈</div>
+            <div class="balloon-wrapper" onclick="popBalloon(this)"><div class="balloon-string"></div>🎈</div>
+            <div class="balloon-wrapper" onclick="popBalloon(this)"><div class="balloon-string"></div>🎈</div>
         </div>
         <p id="balloon-msg" class="game-text">Balloons left: 3</p>
         <div class="button-container">
-            <button id="balloon-btn" class="btn yes hidden liquid-btn" onclick="showPage('scratch-screen')">Next ❤️</button>
+            <button id="balloon-btn" class="btn premium-btn hidden" onclick="showPage('scratch-screen')"><span>Next ❤️</span></button>
         </div>
     </div>
 
     <!-- GAME 3: SCRATCH CARD -->
-    <div id="scratch-screen" class="glass-card hidden">
-        <h1 class="shimmer-text">A Secret Message 🤫</h1>
-        <p>Scratch the silver foil to reveal what I really think about you...</p>
+    <div id="scratch-screen" class="aura-card hidden">
+        <h1 class="metallic-text">A Secret Message 🤫</h1>
+        <p class="subtitle">Scratch the foil to reveal what I really think...</p>
         <div class="scratch-container">
             <div class="scratch-content">
-                <h2 class="shimmer-text">Tum Kartikey ki jaan ho! <br>💖🥜</h2>
+                <h2 class="metallic-text" style="font-size: 22px;">Tum Kartikey ki jaan ho! 💖</h2>
             </div>
             <canvas id="scratch-pad" width="280" height="150"></canvas>
         </div>
         <div class="button-container">
-            <button id="scratch-btn" class="btn yes hidden liquid-btn" onclick="showPage('page8')" style="margin-top: 15px;">Aww, Next! 🥰</button>
+            <button id="scratch-btn" class="btn premium-btn hidden" onclick="showPage('page8')" style="margin-top: 15px;"><span>Aww, Next! 🥰</span></button>
         </div>
     </div>
 
-    <div id="page8" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="6.png" alt="Chai" class="floating custom-img" onerror="this.src='giphy (4).gif'"></div>
-        <h1 class="shimmer-text">Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
+    <div id="page8" class="aura-card hidden">
+        <div class="photo-frame"><img src="6.png" alt="Chai" onerror="this.src='giphy (4).gif'"></div>
+        <h1 class="metallic-text">Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page9')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page9')">No</button>
         </div>
     </div>
 
-    <div id="page9" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="7.png" alt="Chocolates" class="floating custom-img" onerror="this.src='giphy (5).gif'"></div>
-        <h1 class="shimmer-text">Tumhare mood swings bhi hass ke seh lunga!</h1>
-        <p>Aur chocolates hamesha ready rakhunga 🍫</p>
+    <div id="page9" class="aura-card hidden">
+        <div class="photo-frame"><img src="7.png" alt="Chocolates" onerror="this.src='giphy (5).gif'"></div>
+        <h1 class="metallic-text">Tumhare mood swings bhi hass ke seh lunga! 🍫</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page10')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page10')">No</button>
         </div>
     </div>
 
-    <div id="page10" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="8.png" alt="Kidnap" class="floating custom-img" onerror="this.src='giphy (6).gif'"></div>
-        <h1 class="shimmer-text">Sachi bata raha hoon, I'll kidnap you! 😤</h1>
+    <div id="page10" class="aura-card hidden">
+        <div class="photo-frame"><img src="8.png" alt="Kidnap" onerror="this.src='giphy (6).gif'"></div>
+        <h1 class="metallic-text">Sachi bata raha hoon, I'll kidnap you! 😤</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page11')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page11')">No</button>
         </div>
     </div>
 
-    <div id="page11" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="9.png" alt="Sad" class="floating custom-img" onerror="this.src='giphy (7).gif'"></div>
-        <h1 class="shimmer-text">Okay fine. Devdas ban jaunga main ab. 😭</h1>
+    <div id="page11" class="aura-card hidden">
+        <div class="photo-frame"><img src="9.png" alt="Sad" onerror="this.src='giphy (7).gif'"></div>
+        <h1 class="metallic-text">Okay fine. Devdas ban jaunga main ab. 😭</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page12')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page12')">No</button>
         </div>
     </div>
 
     <!-- GAME 4: COMPATIBILITY ANALYZER -->
-    <div id="page12" class="glass-card hidden">
-        <h1 class="shimmer-text">Love Compatibility 📊</h1>
-        <div class="compat-box"><div class="compat-fill" id="compat-fill"></div></div>
-        <p id="compat-text" class="game-text glow-pulse">0%</p>
+    <div id="page12" class="aura-card hidden">
+        <h1 class="metallic-text">Love Compatibility 📊</h1>
+        <div class="compat-box"><div class="compat-fill" id="compat-fill"></div><div class="compat-glow"></div></div>
+        <p id="compat-text" class="game-text">0%</p>
         <div class="button-container">
-            <button class="btn no liquid-btn" onclick="startAnalyzer()" id="analyze-btn">Analyze</button>
-            <button id="compat-next-btn" class="btn yes hidden liquid-btn" onclick="showPage('page13')">See Destiny ✨</button>
+            <button class="btn secondary-btn" onclick="startAnalyzer()" id="analyze-btn">Analyze</button>
+            <button id="compat-next-btn" class="btn premium-btn hidden" onclick="showPage('page13')"><span>See Destiny ✨</span></button>
         </div>
     </div>
 
     <!-- GAME 5: DESTINY SPINNER -->
-    <div id="page13" class="glass-card hidden">
-        <h1 class="shimmer-text">The Destiny Spinner 🎰</h1>
+    <div id="page13" class="aura-card hidden">
+        <h1 class="metallic-text">The Destiny Spinner 🎰</h1>
         <div class="spinner-box"><h2 id="spinner-text">❓❓❓</h2></div>
         <div class="button-container">
-            <button id="spin-btn" class="btn no liquid-btn" onclick="startSpinner()">Spin It!</button>
-            <button id="spinner-next-btn" class="btn yes hidden liquid-btn" onclick="showPage('page14')">Proceed 😌</button>
+            <button id="spin-btn" class="btn secondary-btn" onclick="startSpinner()">Spin It!</button>
+            <button id="spinner-next-btn" class="btn premium-btn hidden" onclick="showPage('page14')"><span>Proceed 😌</span></button>
         </div>
     </div>
 
-    <div id="page14" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="10.png" alt="Fate" class="floating custom-img" onerror="this.src='giphy (8).gif'"></div>
-        <h1 class="shimmer-text">Dekha? "Forever with Kartikey"</h1>
-        <p>Fate has spoken. You can't fight destiny...</p>
+    <div id="page14" class="aura-card hidden">
+        <div class="photo-frame"><img src="10.png" alt="Fate" onerror="this.src='giphy (8).gif'"></div>
+        <h1 class="metallic-text">Dekha? "Forever with Kartikey"</h1>
+        <p class="subtitle">Fate has spoken. You can't fight destiny...</p>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page15')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page15')">No</button>
         </div>
     </div>
 
-    <div id="page15" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="11.png" alt="No Banned" class="floating custom-img" onerror="this.src='giphy (8).gif'"></div>
-        <h1 class="shimmer-text">Bas bahut hua! The 'No' button is now banned. 🚫</h1>
+    <div id="page15" class="aura-card hidden">
+        <div class="photo-frame"><img src="11.png" alt="No Banned" onerror="this.src='giphy (8).gif'"></div>
+        <h1 class="metallic-text">Bas bahut hua! The 'No' button is now banned. 🚫</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page16')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page16')">No</button>
         </div>
     </div>
 
     <!-- GAME 6: LOVE SLIDER -->
-    <div id="page16" class="glass-card hidden">
-        <div class="emoji-hero glow-pulse">🥺</div>
-        <h1 class="shimmer-text">Achha ruko... Kitna pyar karti ho?</h1>
-        <input type="range" id="love-slider" min="0" max="100" value="0" oninput="checkSlider()">
+    <div id="page16" class="aura-card hidden">
+        <div class="emoji-hero pulse-magic">🥺</div>
+        <h1 class="metallic-text">Achha ruko... Kitna pyar karti ho?</h1>
+        <div class="slider-wrapper">
+            <input type="range" id="love-slider" min="0" max="100" value="0" oninput="checkSlider()">
+        </div>
         <p id="slider-text" class="game-text">0%</p>
         <div class="button-container">
-            <button id="slider-btn" class="btn yes hidden liquid-btn" onclick="showPage('page18')">Next ❤️</button>
+            <button id="slider-btn" class="btn premium-btn hidden" onclick="showPage('page18')"><span>Next ❤️</span></button>
         </div>
     </div>
 
     <!-- GAME 7: 3D FLIP CARDS -->
-    <div id="page18" class="glass-card hidden">
-        <h1 class="shimmer-text">Find My Heart! 🔍</h1>
+    <div id="page18" class="aura-card hidden">
+        <h1 class="metallic-text">Find My Heart! 🔍</h1>
         <div class="flip-cards-container">
             <div class="flip-card" onclick="flipWrong(this)"><div class="flip-card-inner"><div class="flip-card-front">?</div><div class="flip-card-back">❌</div></div></div>
             <div class="flip-card" onclick="flipRight(this)"><div class="flip-card-inner"><div class="flip-card-front">?</div><div class="flip-card-back">💖</div></div></div>
@@ -231,95 +236,95 @@
         </div>
         <p id="card-msg" class="game-text"></p>
         <div class="button-container">
-            <button id="card-btn" class="btn yes hidden liquid-btn" onclick="showPage('page19')">Next ❤️</button>
+            <button id="card-btn" class="btn premium-btn hidden" onclick="showPage('page19')"><span>Next ❤️</span></button>
         </div>
     </div>
 
-    <div id="page19" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="12.png" alt="Found Heart" class="floating custom-img" onerror="this.src='giphy (9).gif'"></div>
-        <h1 class="shimmer-text">Wow, you found it!</h1>
+    <div id="page19" class="aura-card hidden">
+        <div class="photo-frame"><img src="12.png" alt="Found Heart" onerror="this.src='giphy (9).gif'"></div>
+        <h1 class="metallic-text">Wow, you found it!</h1>
         <div class="button-container">
-            <button class="btn yes runaway-btn">Yes</button>
-            <button class="btn no" onclick="showPage('page20')">No</button>
+            <button class="btn premium-btn runaway-btn"><span>Yes</span></button>
+            <button class="btn secondary-btn" onclick="showPage('page20')">No</button>
         </div>
     </div>
 
-    <div id="page20" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="13.png" alt="Magic" class="floating custom-img" onerror="this.src='giphy (9).gif'"></div>
-        <h1 class="shimmer-text">Dekha? The universe is taking over! 🌌</h1>
+    <div id="page20" class="aura-card hidden">
+        <div class="photo-frame"><img src="13.png" alt="Magic" onerror="this.src='giphy (9).gif'"></div>
+        <h1 class="metallic-text">Dekha? The universe is taking over! 🌌</h1>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('page21')">Yes</button>
-            <button class="btn no runaway-btn">No</button>
+            <button class="btn premium-btn" onclick="showPage('page21')"><span>Yes</span></button>
+            <button class="btn secondary-btn runaway-btn">No</button>
         </div>
     </div>
 
-    <div id="page21" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="14.png" alt="Smirk" class="floating custom-img" onerror="this.src='giphy (10).gif'"></div>
-        <h1 class="shimmer-text">Haha! You are trapped by my love! ✨</h1>
+    <div id="page21" class="aura-card hidden">
+        <div class="photo-frame"><img src="14.png" alt="Smirk" onerror="this.src='giphy (10).gif'"></div>
+        <h1 class="metallic-text">Haha! You are trapped by my love! ✨</h1>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('page22')">Yes</button>
-            <button class="btn no runaway-btn">No</button>
+            <button class="btn premium-btn" onclick="showPage('page22')"><span>Yes</span></button>
+            <button class="btn secondary-btn runaway-btn">No</button>
         </div>
     </div>
 
-    <div id="page22" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="15.png" alt="Hug" class="floating custom-img" onerror="this.src='giphy (11).gif'"></div>
-        <h1 class="shimmer-text">There is absolutely no escape...</h1>
+    <div id="page22" class="aura-card hidden">
+        <div class="photo-frame"><img src="15.png" alt="Hug" onerror="this.src='giphy (11).gif'"></div>
+        <h1 class="metallic-text">There is absolutely no escape...</h1>
         <div class="button-container">
-            <button class="btn yes" onclick="showPage('page23')">Yes</button>
-            <button class="btn no runaway-btn">No</button>
+            <button class="btn premium-btn" onclick="showPage('page23')"><span>Yes</span></button>
+            <button class="btn secondary-btn runaway-btn">No</button>
         </div>
     </div>
 
-    <div id="page23" class="glass-card hidden">
-        <div class="img-glow-wrapper"><img src="16.png" alt="Eyes" class="floating custom-img" onerror="this.src='giphy (12).gif'"></div>
-        <h1 class="shimmer-text">Just look into my eyes and click YES! 😌</h1>
+    <div id="page23" class="aura-card hidden">
+        <div class="photo-frame"><img src="16.png" alt="Eyes" onerror="this.src='giphy (12).gif'"></div>
+        <h1 class="metallic-text">Just look into my eyes and click YES! 😌</h1>
         <div class="button-container">
-            <button class="btn yes liquid-btn" onclick="showPage('page24')">Yes</button>
-            <button class="btn no runaway-btn">No</button>
+            <button class="btn premium-btn" onclick="showPage('page24')"><span>Yes</span></button>
+            <button class="btn secondary-btn runaway-btn">No</button>
         </div>
     </div>
 
     <!-- THE GRAND FINALE -->
-    <div id="page24" class="glass-card hidden final-card" style="padding-bottom: 20px;">
+    <div id="page24" class="aura-card hidden final-card">
         
         <div id="final-polaroid-game" style="width: 100%;">
-            <h1 class="shimmer-text">Developing our Memory... 📸</h1>
-            <p>Tap and <b>HOLD</b> the blank photo to unlock our forever.</p>
+            <h1 class="metallic-text">Developing our Memory... 📸</h1>
+            <p class="subtitle">Tap and <b>HOLD</b> the photo to unlock our forever.</p>
             
-            <div class="polaroid-frame" id="finale-polaroid-frame">
+            <div class="premium-polaroid" id="finale-polaroid-frame">
                 <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" onerror="this.src='giphy.gif'">
                 <div class="polaroid-caption">You & Me ❤️</div>
             </div>
             
-            <p id="finale-polaroid-msg" class="game-text glow-pulse" style="font-size: 16px;">Hold to develop...</p>
+            <p id="finale-polaroid-msg" class="game-text pulse-magic" style="font-size: 16px;">Hold to develop...</p>
         </div>
 
         <div id="gallery-container" class="hidden" style="width: 100%;">
             <div class="final-text-container">
-                <h1 id="final-typewriter" class="typing-cursor shimmer-text" style="font-size: 24px;"></h1>
-                <p class="final-text" style="margin-bottom: 20px;">Kartikey ❤️ His Moongfali 🥜</p>
+                <h1 id="final-typewriter" class="typing-cursor metallic-text" style="font-size: 26px;"></h1>
+                <p class="final-text">Kartikey ❤️ His Moongfali 🥜</p>
             </div>
 
             <!-- The Final Collage -->
             <div class="scrollable-gallery" id="final-gallery">
-                <div class="polaroid-frame final-pic">
+                <div class="premium-polaroid final-pic">
                     <img src="us.jpg" class="polaroid-img developed-img">
                     <div class="polaroid-caption">You & Me ❤️</div>
                 </div>
-                <div class="polaroid-frame final-pic">
+                <div class="premium-polaroid final-pic">
                     <img src="shopping.jpg" class="polaroid-img developed-img">
                     <div class="polaroid-caption">Shopping Partner 🛍️</div>
                 </div>
-                <div class="polaroid-frame final-pic">
+                <div class="premium-polaroid final-pic">
                     <img src="nakhre.jpg" class="polaroid-img developed-img">
                     <div class="polaroid-caption">Those Nakhre 🥺</div>
                 </div>
-                <div class="polaroid-frame final-pic">
+                <div class="premium-polaroid final-pic">
                     <img src="destiny.jpg" class="polaroid-img developed-img">
                     <div class="polaroid-caption">Our Destiny ✨</div>
                 </div>
-                <div class="polaroid-frame final-pic">
+                <div class="premium-polaroid final-pic">
                     <img src="forever.jpg" class="polaroid-img developed-img">
                     <div class="polaroid-caption">Forever ♾️</div>
                 </div>
