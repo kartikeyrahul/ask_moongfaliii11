@@ -10,7 +10,6 @@
 </head>
 <body>
 
-    <!-- Cinematic Background Video -->
     <div class="video-container">
         <video autoplay loop muted playsinline id="bg-video">
             <source src="background.mp4" type="video/mp4">
@@ -18,56 +17,44 @@
         <div class="video-overlay"></div>
     </div>
     
-    <!-- Magical Ambient Effects -->
     <div id="floating-petals-container"></div>
-    <div id="fireflies-container"></div>
     <audio id="cracker-sound"><source src="crackers.mp3" type="audio/mpeg"></audio>
 
-    <!-- SLIDE 0: PASSWORD (Magical Gate) -->
-    <div id="password-screen" class="cinematic-scene active">
-        <div class="subtitles" style="bottom: 25vh;">
-            <div class="lock-icon">🔐</div>
-            <h1>Unlock Kartikey's Heart</h1>
-            <p>Hint: Tumhara sabse pyara nickname kya hai? 🥜</p>
-            <input type="text" id="heart-password" placeholder="Enter password..." autocomplete="off">
-            <div class="button-container">
-                <button class="cinematic-btn yes glow-border" onclick="checkPassword()">Unlock 💖</button>
-            </div>
-            <p id="pwd-error" class="hidden error-text">Galat password! Try again Pooja ji 😉</p>
-        </div>
+    <!-- SLIDE 0: PASSWORD -->
+    <div id="password-screen" class="glass-card active tilt-card">
+        <div class="lock-icon">🔒</div>
+        <h1>Unlock Kartikey's Heart</h1>
+        <p>Hint: Tumhara sabse pyara nickname kya hai? 🥜</p>
+        <input type="text" id="heart-password" placeholder="Enter password..." autocomplete="off">
+        <button class="btn yes glow-btn" onclick="checkPassword()">Unlock 💖</button>
+        <p id="pwd-error" class="hidden error-text">Galat password! Try again Pooja ji 😉</p>
     </div>
 
     <!-- GAME 1: FINGERPRINT -->
-    <div id="fingerprint-screen" class="cinematic-scene hidden">
-        <div class="subtitles" style="bottom: 15vh;">
-            <div class="emoji-hero" style="font-size: 80px; filter: drop-shadow(0 0 20px rgba(255,107,129,0.8));">👆</div>
-            <h1>Biometric Verification</h1>
-            <p>Hold your thumb on the scanner to confirm your identity.</p>
-            <div class="fingerprint-box" id="scanner-box">
-                <div class="scan-line" id="scan-line"></div>
-                <p style="color: #fff; opacity: 0.8; letter-spacing: 2px;">HOLD HERE</p>
-            </div>
-            <p id="fingerprint-msg" class="game-text">Waiting for scan...</p>
-            <div class="button-container">
-                <button id="scan-btn" class="cinematic-btn yes hidden glow-border" onclick="startExperience()">Access Granted ✨</button>
-            </div>
+    <div id="fingerprint-screen" class="glass-card hidden tilt-card">
+        <div class="emoji-hero" style="font-size: 80px;">👆</div>
+        <h1>Biometric Verification</h1>
+        <p>Hold your thumb on the scanner to confirm your identity.</p>
+        <div class="fingerprint-box" id="scanner-box">
+            <div class="scan-line" id="scan-line"></div>
+            <p>HOLD HERE</p>
+        </div>
+        <p id="fingerprint-msg" class="game-text">Waiting for scan...</p>
+        <div class="button-container">
+            <button id="scan-btn" class="btn yes hidden glow-btn" onclick="startExperience()">Access Granted ✨</button>
         </div>
     </div>
 
-    <!-- SLIDE 1: INTRO TYPEWRITER -->
-    <div id="intro-screen" class="cinematic-scene hidden">
-        <div class="subtitles" style="bottom: 35vh;">
-            <h1 id="typewriter-title" class="typing-cursor" style="font-size: 35px;"></h1>
-            <p id="typewriter-text" style="min-height: 60px; font-size: 18px;"></p>
-            <div class="button-container">
-                <button id="intro-btn" class="cinematic-btn yes glow-border hidden" onclick="showPage('page2')">Start the Journey ✨</button>
-            </div>
-        </div>
+    <!-- SLIDE 1: INTRO -->
+    <div id="intro-screen" class="glass-card hidden">
+        <h1 id="typewriter-title" class="typing-cursor"></h1>
+        <p id="typewriter-text" style="min-height: 50px;"></p>
+        <button id="intro-btn" class="btn yes glow-btn hidden" onclick="showPage('page2')">Start the Journey ✨</button>
     </div>
     
-    <!-- THE STORY JOURNEY (Full Screen Masked Images) -->
-    <div id="page2" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="1.png" class="scene-img" onerror="this.src='giphy.gif'"></div>
+    <!-- THE CUSTOM STORY SLIDES -->
+    <div id="page2" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="1.png" alt="Kartikey" class="scene-img"></div>
         <div class="subtitles">
             <h1>Hey Moongfali, will you officially be mine forever? 😉</h1>
             <div class="button-container">
@@ -77,20 +64,35 @@
         </div>
     </div>
 
-    <div id="page3" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="2.png" class="scene-img" onerror="this.src='giphy (1).gif'"></div>
+    <div id="page3" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="2.png" alt="Kartikey" class="scene-img"></div>
         <div class="subtitles">
             <h1>Ouch! Itni jaldi No? 🥺</h1>
             <p>Aise dil tod dogi apne Kartikey ka?</p>
             <div class="button-container">
                 <button class="cinematic-btn yes runaway-btn">Yes</button>
-                <button class="cinematic-btn no" onclick="showPage('page4')">No</button>
+                <button class="cinematic-btn no" onclick="showPage('meme1')">No</button>
             </div>
         </div>
     </div>
 
-    <div id="page4" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="3.png" class="scene-img" onerror="this.src='giphy (2).gif'"></div>
+    <!-- 🤣 MEME SLIDE 1 (Plays meme1.mp4) -->
+    <div id="meme1" class="glass-card hidden">
+        <div class="scene-img-wrapper">
+            <video autoplay loop muted playsinline class="scene-img meme-video"><source src="meme1.mp4" type="video/mp4"></video>
+        </div>
+        <div class="subtitles">
+            <h1>Hey Bhagwan, teri leela aprampaar hai! 🤦‍♂️</h1>
+            <p>Utha le re baba... mujhe nahi, is 'No' button ko utha le!</p>
+            <div class="button-container">
+                <button class="cinematic-btn yes runaway-btn">Yes</button>
+                <button class="cinematic-btn no" onclick="showPage('page4')">Thik Hai... Next</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="page4" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="3.png" alt="Kartikey" class="scene-img"></div>
         <div class="subtitles">
             <h1>Are you seriously ignoring this cute face? 🤨</h1>
             <div class="button-container">
@@ -100,8 +102,8 @@
         </div>
     </div>
 
-    <div id="page5" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="4.png" class="scene-img" onerror="this.src='giphy (3).gif'"></div>
+    <div id="page5" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="4.png" alt="Shopping" class="scene-img"></div>
         <div class="subtitles">
             <h1>Shopping ke saare bags main uthaunga!</h1>
             <p>Aur bina complain kiye tumhare pictures bhi click karunga 📸</p>
@@ -112,8 +114,8 @@
         </div>
     </div>
 
-    <div id="page6" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="5.png" class="scene-img" onerror="this.src='giphy (3).gif'"></div>
+    <div id="page6" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="5.png" alt="Hoodie" class="scene-img"></div>
         <div class="subtitles">
             <h1>Main apni favourite hoodie bhi de dunga tumhe! 🧥</h1>
             <div class="button-container">
@@ -123,40 +125,40 @@
         </div>
     </div>
 
-    <!-- GAME: BALLOON POP -->
-    <div id="page7" class="cinematic-scene hidden">
+    <!-- GAME 2: BALLOON POP -->
+    <div id="page7" class="glass-card hidden">
         <div class="subtitles" style="bottom: 20vh;">
             <h1>Pop Your Tantrums! 🎈</h1>
-            <p>Pop these 3 glowing orbs (tumhare nakhre) to proceed!</p>
+            <p>Pop these 3 balloons (tumhare nakhre) to proceed!</p>
             <div class="balloons-container">
-                <div class="balloon" onclick="popBalloon(this)">🔴</div>
-                <div class="balloon" onclick="popBalloon(this)">🔴</div>
-                <div class="balloon" onclick="popBalloon(this)">🔴</div>
+                <div class="balloon" onclick="popBalloon(this)">🎈</div>
+                <div class="balloon" onclick="popBalloon(this)">🎈</div>
+                <div class="balloon" onclick="popBalloon(this)">🎈</div>
             </div>
-            <p id="balloon-msg" class="game-text">Orbs left: 3</p>
+            <p id="balloon-msg" class="game-text">Balloons left: 3</p>
             <div class="button-container">
                 <button id="balloon-btn" class="cinematic-btn yes hidden glow-border" onclick="showPage('scratch-screen')">Next ❤️</button>
             </div>
         </div>
     </div>
 
-    <!-- GAME: SCRATCH CARD -->
-    <div id="scratch-screen" class="cinematic-scene hidden">
+    <!-- GAME 3: SCRATCH CARD -->
+    <div id="scratch-screen" class="glass-card hidden">
         <div class="subtitles" style="bottom: 15vh;">
             <h1>A Secret Message 🤫</h1>
-            <p>Scratch the magic foil to reveal what I really think about you...</p>
+            <p>Scratch the silver foil to reveal what I really think about you...</p>
             <div class="scratch-container">
                 <div class="scratch-content"><h2>Tum Kartikey ki jaan ho! <br>💖🥜</h2></div>
-                <canvas id="scratch-pad" width="300" height="180"></canvas>
+                <canvas id="scratch-pad" width="280" height="150"></canvas>
             </div>
             <div class="button-container">
-                <button id="scratch-btn" class="cinematic-btn yes hidden glow-border" onclick="showPage('page8')" style="margin-top: 20px;">Aww, Next! 🥰</button>
+                <button id="scratch-btn" class="cinematic-btn yes hidden glow-border" onclick="showPage('page8')" style="margin-top: 15px;">Aww, Next! 🥰</button>
             </div>
         </div>
     </div>
 
-    <div id="page8" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="6.png" class="scene-img" onerror="this.src='giphy (4).gif'"></div>
+    <div id="page8" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="6.png" alt="Chai" class="scene-img"></div>
         <div class="subtitles">
             <h1>Okay, I promise tumhari aadhi chai main piyunga! ☕</h1>
             <div class="button-container">
@@ -166,8 +168,8 @@
         </div>
     </div>
 
-    <div id="page9" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="7.png" class="scene-img" onerror="this.src='giphy (5).gif'"></div>
+    <div id="page9" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="7.png" alt="Chocolates" class="scene-img"></div>
         <div class="subtitles">
             <h1>Tumhare mood swings bhi hass ke seh lunga!</h1>
             <p>Aur chocolates hamesha ready rakhunga 🍫</p>
@@ -178,8 +180,8 @@
         </div>
     </div>
 
-    <div id="page10" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="8.png" class="scene-img" onerror="this.src='giphy (6).gif'"></div>
+    <div id="page10" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="8.png" alt="Kidnap" class="scene-img"></div>
         <div class="subtitles">
             <h1>Sachi bata raha hoon, I'll kidnap you! 😤</h1>
             <div class="button-container">
@@ -189,19 +191,34 @@
         </div>
     </div>
 
-    <div id="page11" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="9.png" class="scene-img" onerror="this.src='giphy (7).gif'"></div>
+    <div id="page11" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="9.png" alt="Sad" class="scene-img"></div>
         <div class="subtitles">
             <h1>Okay fine. Devdas ban jaunga main ab. 😭</h1>
             <div class="button-container">
                 <button class="cinematic-btn yes runaway-btn">Yes</button>
-                <button class="cinematic-btn no" onclick="showPage('page12')">No</button>
+                <button class="cinematic-btn no" onclick="showPage('meme2')">No</button>
             </div>
         </div>
     </div>
 
-    <!-- GAME: COMPATIBILITY -->
-    <div id="page12" class="cinematic-scene hidden">
+    <!-- 🤣 MEME SLIDE 2 (Plays meme2.mp4) -->
+    <div id="meme2" class="glass-card hidden">
+        <div class="scene-img-wrapper">
+            <video autoplay loop muted playsinline class="scene-img meme-video"><source src="meme2.mp4" type="video/mp4"></video>
+        </div>
+        <div class="subtitles">
+            <h1>Control Kartikey, Control... 🧘‍♂️</h1>
+            <p>Bohot nakhre hain ladki ke, pyaar se manana padega!</p>
+            <div class="button-container">
+                <button class="cinematic-btn yes runaway-btn">Yes</button>
+                <button class="cinematic-btn no" onclick="showPage('page12')">Next Game</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME 4: COMPATIBILITY ANALYZER -->
+    <div id="page12" class="glass-card hidden">
         <div class="subtitles" style="bottom: 25vh;">
             <h1>Love Compatibility 📊</h1>
             <div class="compat-box"><div class="compat-fill" id="compat-fill"></div></div>
@@ -213,8 +230,8 @@
         </div>
     </div>
 
-    <!-- GAME: DESTINY SPINNER -->
-    <div id="page13" class="cinematic-scene hidden">
+    <!-- GAME 5: DESTINY SPINNER -->
+    <div id="page13" class="glass-card hidden">
         <div class="subtitles" style="bottom: 25vh;">
             <h1>The Destiny Spinner 🎰</h1>
             <div class="spinner-box"><h2 id="spinner-text">❓❓❓</h2></div>
@@ -225,8 +242,8 @@
         </div>
     </div>
 
-    <div id="page14" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="10.png" class="scene-img" onerror="this.src='giphy (8).gif'"></div>
+    <div id="page14" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="10.png" alt="Fate" class="scene-img"></div>
         <div class="subtitles">
             <h1>Dekha? "Forever with Kartikey"</h1>
             <p>Fate has spoken. You can't fight destiny...</p>
@@ -237,19 +254,33 @@
         </div>
     </div>
 
-    <div id="page15" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="11.png" class="scene-img" onerror="this.src='giphy (8).gif'"></div>
+    <div id="page15" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="11.png" alt="No Banned" class="scene-img"></div>
         <div class="subtitles">
             <h1>Bas bahut hua! The 'No' button is now banned. 🚫</h1>
             <div class="button-container">
                 <button class="cinematic-btn yes runaway-btn">Yes</button>
-                <button class="cinematic-btn no" onclick="showPage('page16')">No</button>
+                <button class="cinematic-btn no" onclick="showPage('meme3')">No</button>
             </div>
         </div>
     </div>
 
-    <!-- GAME: LOVE SLIDER -->
-    <div id="page16" class="cinematic-scene hidden">
+    <!-- 🤣 MEME SLIDE 3 (Plays meme3.mp4) -->
+    <div id="meme3" class="glass-card hidden">
+        <div class="scene-img-wrapper">
+            <video autoplay loop muted playsinline class="scene-img meme-video"><source src="meme3.mp4" type="video/mp4"></video>
+        </div>
+        <div class="subtitles">
+            <h1>Abhi maza aayega na bhidu! 😎</h1>
+            <p>Pooja ji right now realizing she is officially trapped...</p>
+            <div class="button-container">
+                <button class="cinematic-btn yes" onclick="showPage('page16')">Bring It On!</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME 6: LOVE SLIDER -->
+    <div id="page16" class="glass-card hidden">
         <div class="subtitles" style="bottom: 25vh;">
             <div class="emoji-hero">🥺</div>
             <h1>Achha ruko... Kitna pyar karti ho?</h1>
@@ -261,8 +292,8 @@
         </div>
     </div>
 
-    <!-- GAME: 3D FLIP CARDS -->
-    <div id="page18" class="cinematic-scene hidden">
+    <!-- GAME 7: 3D FLIP CARDS -->
+    <div id="page18" class="glass-card hidden">
         <div class="subtitles" style="bottom: 15vh;">
             <h1>Find My Heart! 🔍</h1>
             <div class="flip-cards-container">
@@ -277,8 +308,8 @@
         </div>
     </div>
 
-    <div id="page19" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="12.png" class="scene-img" onerror="this.src='giphy (9).gif'"></div>
+    <div id="page19" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="12.png" alt="Found Heart" class="scene-img"></div>
         <div class="subtitles">
             <h1>Wow, you found it!</h1>
             <div class="button-container">
@@ -288,8 +319,8 @@
         </div>
     </div>
 
-    <div id="page20" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="13.png" class="scene-img" onerror="this.src='giphy (9).gif'"></div>
+    <div id="page20" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="13.png" alt="Magic" class="scene-img"></div>
         <div class="subtitles">
             <h1>Dekha? The universe is taking over! 🌌</h1>
             <div class="button-container">
@@ -299,8 +330,8 @@
         </div>
     </div>
 
-    <div id="page21" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="14.png" class="scene-img" onerror="this.src='giphy (10).gif'"></div>
+    <div id="page21" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="14.png" alt="Smirk" class="scene-img"></div>
         <div class="subtitles">
             <h1>Haha! You are trapped by my love! ✨</h1>
             <div class="button-container">
@@ -310,8 +341,8 @@
         </div>
     </div>
 
-    <div id="page22" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="15.png" class="scene-img" onerror="this.src='giphy (11).gif'"></div>
+    <div id="page22" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="15.png" alt="Hug" class="scene-img"></div>
         <div class="subtitles">
             <h1>There is absolutely no escape...</h1>
             <div class="button-container">
@@ -321,41 +352,40 @@
         </div>
     </div>
 
-    <div id="page23" class="cinematic-scene hidden">
-        <div class="scene-img-wrapper"><img src="16.png" class="scene-img" onerror="this.src='giphy (12).gif'"></div>
+    <div id="page23" class="glass-card hidden">
+        <div class="scene-img-wrapper"><img src="16.png" alt="Eyes" class="scene-img"></div>
         <div class="subtitles">
             <h1>Just look into my eyes and click YES! 😌</h1>
             <div class="button-container">
-                <button class="cinematic-btn yes glow-border" onclick="showPage('page24')">Yes</button>
+                <button class="cinematic-btn yes glow-btn" onclick="showPage('page24')">Yes</button>
                 <button class="cinematic-btn no runaway-btn">No</button>
             </div>
         </div>
     </div>
 
     <!-- THE GRAND FINALE: POLAROID INTO GALLERY -->
-    <div id="page24" class="cinematic-scene hidden">
+    <div id="page24" class="glass-card hidden final-card" style="padding-bottom: 20px;">
         
-        <!-- State 1: The Developing Polaroid Game -->
-        <div id="final-polaroid-game" class="subtitles" style="bottom: 10vh; width: 100%;">
+        <div id="final-polaroid-game" style="width: 100%;">
             <h1>Developing our Memory... 📸</h1>
-            <p>Tap and <b>HOLD</b> the photo to unlock our forever.</p>
+            <p>Tap and <b>HOLD</b> the blank photo to unlock our forever.</p>
             
             <div class="polaroid-frame" id="finale-polaroid-frame">
-                <img src="us.jpg" alt="Us" class="polaroid-img" onerror="this.src='giphy.gif'">
+                <img src="us.jpg" alt="Kartikey and Pooja" class="polaroid-img" onerror="this.src='giphy.gif'">
                 <div class="polaroid-caption">You & Me ❤️</div>
             </div>
+            
             <p id="finale-polaroid-msg" class="game-text" style="font-size: 16px;">Hold to develop...</p>
         </div>
 
-        <!-- State 2: The Final Gallery -->
-        <div id="gallery-container" class="hidden" style="width: 100%; position: absolute; top: 0; height: 100%; overflow: hidden;">
-            <div class="final-text-container subtitles" style="bottom: 5vh; position: absolute; z-index: 100;">
-                <h1 id="final-typewriter" class="typing-cursor" style="font-size: 26px; text-shadow: 0 5px 20px rgba(0,0,0,1);"></h1>
-                <p class="final-text" style="margin-bottom: 0; font-weight: bold; text-shadow: 0 2px 10px #000;">Kartikey ❤️ His Moongfali 🥜</p>
+        <div id="gallery-container" class="hidden" style="width: 100%;">
+            <div class="final-text-container">
+                <h1 id="final-typewriter" class="typing-cursor" style="font-size: 24px;"></h1>
+                <p class="final-text" style="margin-bottom: 20px;">Kartikey ❤️ His Moongfali 🥜</p>
             </div>
 
-            <!-- Beautiful grid gallery -->
-            <div class="scrollable-gallery" id="final-gallery" style="margin-top: 5vh; padding-bottom: 25vh;">
+            <!-- The Final Collage! -->
+            <div class="scrollable-gallery" id="final-gallery">
                 <div class="polaroid-frame final-pic"><img src="us.jpg" class="polaroid-img developed-img"><div class="polaroid-caption">You & Me ❤️</div></div>
                 <div class="polaroid-frame final-pic"><img src="shopping.jpg" class="polaroid-img developed-img"><div class="polaroid-caption">Shopping Partner 🛍️</div></div>
                 <div class="polaroid-frame final-pic"><img src="nakhre.jpg" class="polaroid-img developed-img"><div class="polaroid-caption">Those Nakhre 🥺</div></div>
